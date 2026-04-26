@@ -10,9 +10,14 @@ import {
   Fuel,
   Ship,
   Play,
-  Sparkles
+  Sparkles,
+  Globe,
+  Send,
+  MapPin
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { StockLineChart } from "@/components/home/stock-line-chart"
 import { HousingRatesChart } from "@/components/home/housing-rates-chart"
 import { TariffImpactChart } from "@/components/home/tariff-impact-chart"
@@ -335,16 +340,130 @@ export default function Home() {
         </div>
       </section>
 
+      {/* World Map Section */}
+      <section className="relative z-10 px-4 py-16 border-t border-border">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-4">
+              <Globe className="h-4 w-4 text-primary" />
+              <span className="text-sm font-medium text-primary">Global Expansion</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">More Analysis Coming</h2>
+            <p className="text-muted-foreground">Currently focused on Canada. Global markets coming soon.</p>
+          </div>
+          
+          {/* Simple World Map SVG */}
+          <div className="relative max-w-3xl mx-auto">
+            <svg viewBox="0 0 1000 500" className="w-full h-auto opacity-30">
+              {/* Simplified world map paths */}
+              <path d="M165,135 L175,140 L185,130 L200,145 L210,135 L225,150 L220,165 L210,175 L195,180 L180,175 L165,165 L160,150 Z" fill="currentColor" className="text-muted-foreground/50" />
+              <path d="M420,90 L500,85 L580,100 L600,140 L590,180 L550,200 L480,210 L430,190 L410,150 L420,110 Z" fill="currentColor" className="text-muted-foreground/50" />
+              <path d="M450,210 L520,200 L580,220 L600,280 L580,340 L520,360 L460,340 L440,280 Z" fill="currentColor" className="text-muted-foreground/50" />
+              <path d="M700,120 L820,100 L900,130 L920,200 L890,280 L820,320 L740,300 L700,240 L710,180 Z" fill="currentColor" className="text-muted-foreground/50" />
+              <path d="M750,320 L850,310 L920,350 L900,420 L820,450 L750,420 L740,370 Z" fill="currentColor" className="text-muted-foreground/50" />
+              <path d="M200,320 L280,300 L340,330 L350,400 L310,450 L240,460 L190,420 L185,360 Z" fill="currentColor" className="text-muted-foreground/50" />
+              {/* North America - Canada highlighted */}
+              <path d="M120,100 L220,70 L320,80 L350,120 L340,180 L280,200 L200,210 L140,190 L110,150 Z" fill="currentColor" className="text-primary/40" />
+            </svg>
+            
+            {/* Canada Pulsing Dot */}
+            <div className="absolute top-[22%] left-[22%] transform -translate-x-1/2 -translate-y-1/2">
+              <div className="relative">
+                <span className="absolute inline-flex h-8 w-8 animate-ping rounded-full bg-primary opacity-40" />
+                <span className="absolute inline-flex h-8 w-8 animate-ping rounded-full bg-primary opacity-20" style={{ animationDelay: '0.5s' }} />
+                <span className="relative inline-flex h-4 w-4 rounded-full bg-primary border-2 border-background" />
+                <div className="absolute left-6 top-0 whitespace-nowrap">
+                  <div className="flex items-center gap-1.5 bg-card/90 backdrop-blur px-3 py-1.5 rounded-lg border border-primary/30">
+                    <MapPin className="h-3.5 w-3.5 text-primary" />
+                    <span className="text-xs font-semibold text-foreground">Canada</span>
+                    <span className="text-[10px] text-chart-1">LIVE</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Coming Soon Dots */}
+            <div className="absolute top-[30%] left-[50%]">
+              <span className="inline-flex h-2 w-2 rounded-full bg-muted-foreground/40" />
+            </div>
+            <div className="absolute top-[55%] left-[48%]">
+              <span className="inline-flex h-2 w-2 rounded-full bg-muted-foreground/40" />
+            </div>
+            <div className="absolute top-[35%] left-[80%]">
+              <span className="inline-flex h-2 w-2 rounded-full bg-muted-foreground/40" />
+            </div>
+            <div className="absolute top-[70%] left-[78%]">
+              <span className="inline-flex h-2 w-2 rounded-full bg-muted-foreground/40" />
+            </div>
+          </div>
+          
+          <p className="text-center text-sm text-muted-foreground mt-6">
+            US, Europe, Asia-Pacific analysis in development
+          </p>
+        </div>
+      </section>
+
+      {/* Suggestions Section - Black Background */}
+      <section className="relative z-10 bg-black py-16 px-4">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+              What Should We Build Next?
+            </h2>
+            <p className="text-gray-400">
+              Your feedback shapes this hub. Tell us what analysis would help you most.
+            </p>
+          </div>
+          
+          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <Input 
+                placeholder="Your name (optional)" 
+                className="bg-gray-900 border-gray-800 text-white placeholder:text-gray-500 focus:border-primary"
+              />
+              <Input 
+                placeholder="Email (optional)" 
+                type="email"
+                className="bg-gray-900 border-gray-800 text-white placeholder:text-gray-500 focus:border-primary"
+              />
+            </div>
+            <Textarea 
+              placeholder="What would you like to see? More sectors? Different countries? Specific analysis tools? Let us know..."
+              rows={4}
+              className="bg-gray-900 border-gray-800 text-white placeholder:text-gray-500 focus:border-primary resize-none"
+            />
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 rounded-full bg-gray-800 text-gray-400 text-xs cursor-pointer hover:bg-gray-700 transition-colors">US Markets</span>
+                <span className="px-3 py-1 rounded-full bg-gray-800 text-gray-400 text-xs cursor-pointer hover:bg-gray-700 transition-colors">UK Analysis</span>
+                <span className="px-3 py-1 rounded-full bg-gray-800 text-gray-400 text-xs cursor-pointer hover:bg-gray-700 transition-colors">India Markets</span>
+                <span className="px-3 py-1 rounded-full bg-gray-800 text-gray-400 text-xs cursor-pointer hover:bg-gray-700 transition-colors">Currency Tools</span>
+              </div>
+              <Button className="gap-2 bg-primary hover:bg-primary/90">
+                <Send className="h-4 w-4" />
+                Submit Suggestion
+              </Button>
+            </div>
+          </form>
+          
+          <div className="mt-8 pt-8 border-t border-gray-800 text-center">
+            <p className="text-sm text-gray-500">
+              Built with care by <span className="text-white">Nitin</span> for the community
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="relative z-10 border-t border-border py-6">
+      <footer className="relative z-10 bg-black border-t border-gray-800 py-6">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
             <div className="flex items-center gap-2">
               <span className="font-bold text-sm">
-                <span className="text-foreground">Nitin&apos;s</span>
+                <span className="text-white">Nitin&apos;s</span>
                 <span className="text-primary ml-1">space</span>
               </span>
-              <span className="text-muted-foreground">| Hub is growing</span>
+              <span>| Hub is growing</span>
             </div>
             <div className="flex items-center gap-3">
               <span>Educational only</span>
