@@ -16,7 +16,7 @@ import {
   GraduationCap,
   Lightbulb
 } from "lucide-react"
-import { GeopoliticalImpactChart } from "@/components/home/geopolitical-impact-chart"
+import { LiveCommodityChart } from "@/components/home/live-commodity-chart"
 
 const features = [
   {
@@ -160,9 +160,9 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Live Geopolitical Impact Chart */}
+        {/* Live Commodity Prices with Geopolitical Context */}
         <div className="w-full px-4 pb-12">
-          <GeopoliticalImpactChart />
+          <LiveCommodityChart />
         </div>
 
         {/* Educational Section */}

@@ -15,13 +15,15 @@ import {
   BarChart3,
   Activity,
   GitCompare,
-  LayoutDashboard
+  LayoutDashboard,
+  Gem
 } from "lucide-react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 
 const navigation = [
   { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
+  { name: "Commodities", href: "/dashboard/commodities", icon: Gem },
   { name: "Stocks", href: "/dashboard/stocks", icon: TrendingUp },
   { name: "Crypto", href: "/dashboard/crypto", icon: Bitcoin },
   { name: "Economy", href: "/dashboard/economy", icon: Landmark },
