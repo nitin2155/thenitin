@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'MapleMarkets - Canadian Financial Intelligence Platform',
-  description: 'Real-time stock market data, cryptocurrency prices in CAD, Bank of Canada economic indicators, housing market analysis, and geopolitical impact tracking for Canadian investors. Free, no API key required.',
+  title: 'The Nitin - Real-Time Financial Intelligence',
+  description: 'Live stock market data, cryptocurrency tracking in CAD, Bank of Canada economic indicators, Canadian housing analysis, and geopolitical impact insights. Free educational platform for Canadian investors.',
   generator: 'v0.app',
   icons: {
     icon: [

@@ -19,6 +19,7 @@ import {
   Percent
 } from "lucide-react"
 import type { StockData, CryptoData, CanadianEconomicData, CanadianHousingMarket } from "@/lib/types"
+import { MarketAlerts } from "@/components/ui/market-alerts"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -69,11 +70,18 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Market Overview</h1>
-        <p className="text-muted-foreground mt-1">
-          Real-time Canadian market data with geopolitical context
-        </p>
+      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Market Overview</h1>
+          <p className="text-muted-foreground mt-1">
+            Real-time Canadian market data with geopolitical context
+          </p>
+        </div>
+        
+        {/* Market Alerts */}
+        <div className="lg:w-96">
+          <MarketAlerts />
+        </div>
       </div>
 
       {/* Quick Stats */}
