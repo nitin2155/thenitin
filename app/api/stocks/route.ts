@@ -1,60 +1,80 @@
 import { NextResponse } from "next/server"
+import type { StockData } from "@/lib/types"
 
-// Top 20 stocks to track - major US stocks affected by geopolitics
-const TOP_STOCKS = [
+// Top US stocks
+const US_STOCKS = [
   "AAPL", "MSFT", "GOOGL", "AMZN", "NVDA",
   "META", "TSLA", "JPM", "V", "XOM",
   "WMT", "JNJ", "PG", "MA", "HD",
   "CVX", "BAC", "KO", "PFE", "DIS"
 ]
 
-interface StockData {
-  symbol: string
-  name: string
-  price: number
-  change: number
-  changePercent: number
-  volume: number
-  marketCap: string
-  sector: string
-  geopoliticalExposure: "high" | "medium" | "low"
-  affectedRegions: string[]
-}
+// Top TSX Canadian stocks  
+const TSX_STOCKS = [
+  "RY.TO", "TD.TO", "BNS.TO", "BMO.TO", "CM.TO",
+  "ENB.TO", "CNR.TO", "CP.TO", "SU.TO", "CNQ.TO",
+  "SHOP.TO", "BCE.TO", "T.TO", "ABX.TO", "MFC.TO"
+]
 
 // Stock metadata for context
-const STOCK_META: Record<string, { name: string; sector: string; geopoliticalExposure: "high" | "medium" | "low"; affectedRegions: string[] }> = {
-  AAPL: { name: "Apple Inc.", sector: "Technology", geopoliticalExposure: "high", affectedRegions: ["China", "Taiwan"] },
-  MSFT: { name: "Microsoft Corp.", sector: "Technology", geopoliticalExposure: "medium", affectedRegions: ["China", "Europe"] },
-  GOOGL: { name: "Alphabet Inc.", sector: "Technology", geopoliticalExposure: "medium", affectedRegions: ["China", "Europe"] },
-  AMZN: { name: "Amazon.com Inc.", sector: "Consumer Cyclical", geopoliticalExposure: "medium", affectedRegions: ["Global Supply Chain"] },
-  NVDA: { name: "NVIDIA Corp.", sector: "Technology", geopoliticalExposure: "high", affectedRegions: ["China", "Taiwan"] },
-  META: { name: "Meta Platforms", sector: "Technology", geopoliticalExposure: "medium", affectedRegions: ["Europe", "Global"] },
-  TSLA: { name: "Tesla Inc.", sector: "Automotive", geopoliticalExposure: "high", affectedRegions: ["China", "Europe"] },
-  JPM: { name: "JPMorgan Chase", sector: "Financial", geopoliticalExposure: "medium", affectedRegions: ["Global Markets"] },
-  V: { name: "Visa Inc.", sector: "Financial", geopoliticalExposure: "medium", affectedRegions: ["Russia", "Global"] },
-  XOM: { name: "Exxon Mobil", sector: "Energy", geopoliticalExposure: "high", affectedRegions: ["Middle East", "Russia"] },
-  WMT: { name: "Walmart Inc.", sector: "Consumer Defensive", geopoliticalExposure: "medium", affectedRegions: ["China", "Mexico"] },
-  JNJ: { name: "Johnson & Johnson", sector: "Healthcare", geopoliticalExposure: "low", affectedRegions: ["Global"] },
-  PG: { name: "Procter & Gamble", sector: "Consumer Defensive", geopoliticalExposure: "low", affectedRegions: ["Global"] },
-  MA: { name: "Mastercard Inc.", sector: "Financial", geopoliticalExposure: "medium", affectedRegions: ["Russia", "Global"] },
-  HD: { name: "Home Depot", sector: "Consumer Cyclical", geopoliticalExposure: "low", affectedRegions: ["North America"] },
-  CVX: { name: "Chevron Corp.", sector: "Energy", geopoliticalExposure: "high", affectedRegions: ["Middle East", "Venezuela"] },
-  BAC: { name: "Bank of America", sector: "Financial", geopoliticalExposure: "medium", affectedRegions: ["Global Markets"] },
-  KO: { name: "Coca-Cola Co.", sector: "Consumer Defensive", geopoliticalExposure: "low", affectedRegions: ["Global"] },
-  PFE: { name: "Pfizer Inc.", sector: "Healthcare", geopoliticalExposure: "medium", affectedRegions: ["Global", "China"] },
-  DIS: { name: "Walt Disney Co.", sector: "Communication", geopoliticalExposure: "medium", affectedRegions: ["China", "Global"] }
+const STOCK_META: Record<string, { name: string; sector: string; exchange: "NYSE" | "NASDAQ" | "TSX"; currency: "USD" | "CAD"; geopoliticalExposure: "high" | "medium" | "low"; affectedRegions: string[] }> = {
+  // US Stocks
+  AAPL: { name: "Apple Inc.", sector: "Technology", exchange: "NASDAQ", currency: "USD", geopoliticalExposure: "high", affectedRegions: ["China", "Taiwan"] },
+  MSFT: { name: "Microsoft Corp.", sector: "Technology", exchange: "NASDAQ", currency: "USD", geopoliticalExposure: "medium", affectedRegions: ["China", "Europe"] },
+  GOOGL: { name: "Alphabet Inc.", sector: "Technology", exchange: "NASDAQ", currency: "USD", geopoliticalExposure: "medium", affectedRegions: ["China", "Europe"] },
+  AMZN: { name: "Amazon.com Inc.", sector: "Consumer Cyclical", exchange: "NASDAQ", currency: "USD", geopoliticalExposure: "medium", affectedRegions: ["Global Supply Chain"] },
+  NVDA: { name: "NVIDIA Corp.", sector: "Technology", exchange: "NASDAQ", currency: "USD", geopoliticalExposure: "high", affectedRegions: ["China", "Taiwan"] },
+  META: { name: "Meta Platforms", sector: "Technology", exchange: "NASDAQ", currency: "USD", geopoliticalExposure: "medium", affectedRegions: ["Europe", "Global"] },
+  TSLA: { name: "Tesla Inc.", sector: "Automotive", exchange: "NASDAQ", currency: "USD", geopoliticalExposure: "high", affectedRegions: ["China", "Europe"] },
+  JPM: { name: "JPMorgan Chase", sector: "Financial", exchange: "NYSE", currency: "USD", geopoliticalExposure: "medium", affectedRegions: ["Global Markets"] },
+  V: { name: "Visa Inc.", sector: "Financial", exchange: "NYSE", currency: "USD", geopoliticalExposure: "medium", affectedRegions: ["Russia", "Global"] },
+  XOM: { name: "Exxon Mobil", sector: "Energy", exchange: "NYSE", currency: "USD", geopoliticalExposure: "high", affectedRegions: ["Middle East", "Russia"] },
+  WMT: { name: "Walmart Inc.", sector: "Consumer Defensive", exchange: "NYSE", currency: "USD", geopoliticalExposure: "medium", affectedRegions: ["China", "Mexico"] },
+  JNJ: { name: "Johnson & Johnson", sector: "Healthcare", exchange: "NYSE", currency: "USD", geopoliticalExposure: "low", affectedRegions: ["Global"] },
+  PG: { name: "Procter & Gamble", sector: "Consumer Defensive", exchange: "NYSE", currency: "USD", geopoliticalExposure: "low", affectedRegions: ["Global"] },
+  MA: { name: "Mastercard Inc.", sector: "Financial", exchange: "NYSE", currency: "USD", geopoliticalExposure: "medium", affectedRegions: ["Russia", "Global"] },
+  HD: { name: "Home Depot", sector: "Consumer Cyclical", exchange: "NYSE", currency: "USD", geopoliticalExposure: "low", affectedRegions: ["North America"] },
+  CVX: { name: "Chevron Corp.", sector: "Energy", exchange: "NYSE", currency: "USD", geopoliticalExposure: "high", affectedRegions: ["Middle East", "Venezuela"] },
+  BAC: { name: "Bank of America", sector: "Financial", exchange: "NYSE", currency: "USD", geopoliticalExposure: "medium", affectedRegions: ["Global Markets"] },
+  KO: { name: "Coca-Cola Co.", sector: "Consumer Defensive", exchange: "NYSE", currency: "USD", geopoliticalExposure: "low", affectedRegions: ["Global"] },
+  PFE: { name: "Pfizer Inc.", sector: "Healthcare", exchange: "NYSE", currency: "USD", geopoliticalExposure: "medium", affectedRegions: ["Global", "China"] },
+  DIS: { name: "Walt Disney Co.", sector: "Communication", exchange: "NYSE", currency: "USD", geopoliticalExposure: "medium", affectedRegions: ["China", "Global"] },
+  // TSX Canadian Stocks
+  "RY.TO": { name: "Royal Bank of Canada", sector: "Financial", exchange: "TSX", currency: "CAD", geopoliticalExposure: "medium", affectedRegions: ["Canada", "US", "Global"] },
+  "TD.TO": { name: "Toronto-Dominion Bank", sector: "Financial", exchange: "TSX", currency: "CAD", geopoliticalExposure: "medium", affectedRegions: ["Canada", "US"] },
+  "BNS.TO": { name: "Bank of Nova Scotia", sector: "Financial", exchange: "TSX", currency: "CAD", geopoliticalExposure: "medium", affectedRegions: ["Canada", "Latin America"] },
+  "BMO.TO": { name: "Bank of Montreal", sector: "Financial", exchange: "TSX", currency: "CAD", geopoliticalExposure: "medium", affectedRegions: ["Canada", "US"] },
+  "CM.TO": { name: "CIBC", sector: "Financial", exchange: "TSX", currency: "CAD", geopoliticalExposure: "low", affectedRegions: ["Canada", "US"] },
+  "ENB.TO": { name: "Enbridge Inc.", sector: "Energy", exchange: "TSX", currency: "CAD", geopoliticalExposure: "high", affectedRegions: ["Canada", "US", "OPEC"] },
+  "CNR.TO": { name: "Canadian National Railway", sector: "Industrials", exchange: "TSX", currency: "CAD", geopoliticalExposure: "medium", affectedRegions: ["Canada", "US", "Trade Routes"] },
+  "CP.TO": { name: "Canadian Pacific Kansas City", sector: "Industrials", exchange: "TSX", currency: "CAD", geopoliticalExposure: "medium", affectedRegions: ["North America", "Mexico"] },
+  "SU.TO": { name: "Suncor Energy", sector: "Energy", exchange: "TSX", currency: "CAD", geopoliticalExposure: "high", affectedRegions: ["Canada", "OPEC", "Global Oil"] },
+  "CNQ.TO": { name: "Canadian Natural Resources", sector: "Energy", exchange: "TSX", currency: "CAD", geopoliticalExposure: "high", affectedRegions: ["Canada", "Global Oil"] },
+  "SHOP.TO": { name: "Shopify Inc.", sector: "Technology", exchange: "TSX", currency: "CAD", geopoliticalExposure: "low", affectedRegions: ["Global E-commerce"] },
+  "BCE.TO": { name: "BCE Inc.", sector: "Telecom", exchange: "TSX", currency: "CAD", geopoliticalExposure: "low", affectedRegions: ["Canada"] },
+  "T.TO": { name: "TELUS Corp.", sector: "Telecom", exchange: "TSX", currency: "CAD", geopoliticalExposure: "low", affectedRegions: ["Canada"] },
+  "ABX.TO": { name: "Barrick Gold", sector: "Materials", exchange: "TSX", currency: "CAD", geopoliticalExposure: "high", affectedRegions: ["Africa", "South America", "Global Gold"] },
+  "MFC.TO": { name: "Manulife Financial", sector: "Financial", exchange: "TSX", currency: "CAD", geopoliticalExposure: "medium", affectedRegions: ["Canada", "Asia", "US"] }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    // Using Yahoo Finance API (free, no key required) via RapidAPI proxy
-    // Alternative: Using Alpha Vantage demo or Finnhub for real data
-    // For demo purposes, we'll use a free API that provides real stock data
+    const { searchParams } = new URL(request.url)
+    const market = searchParams.get("market") || "all" // "us", "tsx", or "all"
+    
+    let symbolsToFetch: string[] = []
+    if (market === "us") {
+      symbolsToFetch = US_STOCKS
+    } else if (market === "tsx") {
+      symbolsToFetch = TSX_STOCKS
+    } else {
+      symbolsToFetch = [...US_STOCKS, ...TSX_STOCKS]
+    }
     
     const stocks: StockData[] = []
     
     // Fetch from Yahoo Finance quote API (free endpoint)
-    for (const symbol of TOP_STOCKS) {
+    const fetchPromises = symbolsToFetch.map(async (symbol) => {
       try {
         const response = await fetch(
           `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1d&range=1d`,
@@ -80,8 +100,8 @@ export async function GET() {
             
             const stockMeta = STOCK_META[symbol]
             
-            stocks.push({
-              symbol,
+            return {
+              symbol: symbol.replace(".TO", ""),
               name: stockMeta?.name || symbol,
               price: currentPrice,
               change: Number(change.toFixed(2)),
@@ -89,30 +109,40 @@ export async function GET() {
               volume: quote.volume?.[quote.volume.length - 1] || 0,
               marketCap: formatMarketCap(meta.marketCap || 0),
               sector: stockMeta?.sector || "Unknown",
+              exchange: stockMeta?.exchange || "NYSE",
+              currency: stockMeta?.currency || "USD",
               geopoliticalExposure: stockMeta?.geopoliticalExposure || "medium",
               affectedRegions: stockMeta?.affectedRegions || []
-            })
+            } as StockData
           }
         }
+        return null
       } catch {
-        // If individual stock fails, add with fallback data
-        const stockMeta = STOCK_META[symbol]
-        stocks.push({
-          symbol,
-          name: stockMeta?.name || symbol,
-          price: 0,
-          change: 0,
-          changePercent: 0,
-          volume: 0,
-          marketCap: "N/A",
-          sector: stockMeta?.sector || "Unknown",
-          geopoliticalExposure: stockMeta?.geopoliticalExposure || "medium",
-          affectedRegions: stockMeta?.affectedRegions || []
-        })
+        // If individual stock fails, return null
+        return null
       }
-    }
+    })
     
-    return NextResponse.json({ stocks, lastUpdated: new Date().toISOString() })
+    const results = await Promise.all(fetchPromises)
+    
+    // Filter out nulls and add successful results
+    results.forEach((result) => {
+      if (result) stocks.push(result)
+    })
+    
+    // Sort by market cap (largest first)
+    stocks.sort((a, b) => {
+      const aVal = parseMarketCap(a.marketCap)
+      const bVal = parseMarketCap(b.marketCap)
+      return bVal - aVal
+    })
+    
+    return NextResponse.json({ 
+      stocks, 
+      lastUpdated: new Date().toISOString(),
+      market,
+      total: stocks.length
+    })
   } catch (error) {
     console.error("Error fetching stocks:", error)
     return NextResponse.json({ error: "Failed to fetch stock data" }, { status: 500 })
@@ -124,4 +154,13 @@ function formatMarketCap(value: number): string {
   if (value >= 1e9) return `$${(value / 1e9).toFixed(2)}B`
   if (value >= 1e6) return `$${(value / 1e6).toFixed(2)}M`
   return `$${value.toLocaleString()}`
+}
+
+function parseMarketCap(value: string): number {
+  if (value === "N/A") return 0
+  const num = parseFloat(value.replace(/[$,]/g, ""))
+  if (value.includes("T")) return num * 1e12
+  if (value.includes("B")) return num * 1e9
+  if (value.includes("M")) return num * 1e6
+  return num
 }
