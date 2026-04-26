@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
 import { PriceChart } from "@/components/commodities/price-chart"
 import { EventTimeline } from "@/components/commodities/event-impact-card"
-import { ShareableInsightCard } from "@/components/ui/shareable-card"
+import { ShareableCard } from "@/components/ui/shareable-card"
 import { 
   TrendingUp, 
   TrendingDown, 
@@ -266,12 +266,11 @@ export default function CommodityDetailPage() {
       
       {/* Shareable Card */}
       {commodity && (
-        <ShareableInsightCard
+        <ShareableCard
           title={info.name}
-          value={`$${commodity.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}`}
+          value={`C$${commodity.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}`}
           change={commodity.changePercent}
           subtitle={`${info.unit} | ${info.category}`}
-          badge={info.category}
         />
       )}
       

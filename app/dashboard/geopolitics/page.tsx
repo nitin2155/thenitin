@@ -20,8 +20,7 @@ import {
   Landmark,
   Flame,
   DollarSign,
-  Vote,
-  MapleLeaf
+  Vote
 } from "lucide-react"
 import type { GeopoliticalEvent } from "@/lib/types"
 
@@ -272,7 +271,7 @@ export default function GeopoliticsPage() {
                       {/* Canada Impact */}
                       <div className="p-4 rounded-lg bg-destructive/5 border border-destructive/20">
                         <div className="flex items-center gap-2 mb-2">
-                          <MapleLeaf className="h-4 w-4 text-destructive" />
+                          <Landmark className="h-4 w-4 text-destructive" />
                           <span className="font-medium text-destructive">Impact on Canada</span>
                         </div>
                         <p className="text-sm text-muted-foreground">
