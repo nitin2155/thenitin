@@ -89,9 +89,9 @@ export function TariffImpactChart() {
               <p className="text-sm font-bold text-accent">{keyStats.jobsAtRisk}</p>
               <p className="text-[9px] text-accent/70">Jobs Risk</p>
             </div>
-            <div className="p-2 rounded-lg bg-chart-1/10 border border-chart-1/20 text-center">
-              <p className="text-sm font-bold text-chart-1">{keyStats.newPartners}</p>
-              <p className="text-[9px] text-chart-1/70">New Trade</p>
+            <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-center">
+              <p className="text-sm font-bold text-emerald-400">{keyStats.newPartners}</p>
+              <p className="text-[9px] text-emerald-400/70">New Trade</p>
             </div>
           </div>
           
@@ -122,7 +122,7 @@ export function TariffImpactChart() {
                     }}
                     formatter={(value: number) => [`-$${value}B`, 'Potential Loss']}
                   />
-                  <Bar dataKey="loss" radius={[0, 4, 4, 0]} barSize={18}>
+                  <Bar dataKey="loss" radius={[0, 4, 4, 0]} barSize={20}>
                     {sectorData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
@@ -130,7 +130,7 @@ export function TariffImpactChart() {
                       dataKey="loss" 
                       position="right" 
                       formatter={(v: number) => `-$${v}B`}
-                      style={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                      style={{ fontSize: 12, fontWeight: 600, fill: '#ef4444' }}
                     />
                   </Bar>
                 </BarChart>
@@ -139,18 +139,18 @@ export function TariffImpactChart() {
           </div>
           
           {/* Trade Diversification - THE SILVER LINING */}
-          <div className="p-3 rounded-lg bg-chart-1/5 border border-chart-1/20 mb-4">
-            <p className="text-xs font-medium text-foreground mb-2 flex items-center gap-2">
-              <TrendingUp className="h-3.5 w-3.5 text-chart-1" />
+          <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 mb-4">
+            <p className="text-xs font-semibold text-emerald-400 mb-3 flex items-center gap-2">
+              <TrendingUp className="h-4 w-4 text-emerald-400" />
               Canada&apos;s Trade Diversification Gains
             </p>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-4 gap-3">
               {diversificationGains.map((partner) => (
-                <div key={partner.country} className="text-center">
-                  <div className="text-lg mb-0.5">{partner.flag}</div>
-                  <p className="text-[10px] font-medium text-foreground">{partner.country}</p>
-                  <p className="text-xs font-bold text-chart-1">{partner.change}</p>
-                  <p className="text-[9px] text-muted-foreground">{partner.value}</p>
+                <div key={partner.country} className="text-center p-2 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
+                  <div className="text-xl mb-1">{partner.flag}</div>
+                  <p className="text-[10px] font-medium text-foreground mb-1">{partner.country}</p>
+                  <p className="text-base font-bold text-emerald-400">{partner.change}</p>
+                  <p className="text-[10px] font-medium text-emerald-300/70">{partner.value}</p>
                 </div>
               ))}
             </div>
