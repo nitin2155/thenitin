@@ -5,11 +5,9 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import {
   TrendingUp,
-  Bitcoin,
   Landmark,
   Home,
   Globe2,
-  Calculator,
   Menu,
   X,
   BarChart3,
@@ -25,12 +23,10 @@ const navigation = [
   { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
   { name: "Commodities", href: "/dashboard/commodities", icon: Gem },
   { name: "Stocks", href: "/dashboard/stocks", icon: TrendingUp },
-  { name: "Crypto", href: "/dashboard/crypto", icon: Bitcoin },
   { name: "Economy", href: "/dashboard/economy", icon: Landmark },
   { name: "Housing", href: "/dashboard/housing", icon: Home },
   { name: "Geopolitics", href: "/dashboard/geopolitics", icon: Globe2 },
   { name: "Compare", href: "/dashboard/compare", icon: GitCompare },
-  { name: "Tools", href: "/dashboard/tools", icon: Calculator },
 ]
 
 export function MainNav() {

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import useSWR from "swr"
-import { TrendingUp, TrendingDown, Minus, Bitcoin } from "lucide-react"
+import { TrendingUp, TrendingDown, Minus, Gem } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface TickerItem {
@@ -10,7 +10,8 @@ interface TickerItem {
   price: number
   change: number
   changePercent: number
-  type: "stock" | "crypto" | "forex"
+  type: "stock" | "commodity" | "forex"
+  currency: "CAD" | "USD"
 }
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
@@ -23,7 +24,7 @@ export function LiveTicker() {
     refreshInterval: 30000, // 30 seconds
   })
   
-  const { data: cryptoData } = useSWR("/api/crypto", fetcher, {
+  const { data: commoditiesData } = useSWR("/api/commodities", fetcher, {
     refreshInterval: 30000,
   })
 
@@ -32,26 +33,28 @@ export function LiveTicker() {
   
   // Add top stocks
   if (stocksData?.stocks) {
-    stocksData.stocks.slice(0, 10).forEach((stock: { symbol: string; price: number; change: number; changePercent: number }) => {
+    stocksData.stocks.slice(0, 10).forEach((stock: { symbol: string; price: number; change: number; changePercent: number; currency?: string }) => {
       tickerItems.push({
         symbol: stock.symbol,
         price: stock.price,
         change: stock.change,
         changePercent: stock.changePercent,
-        type: "stock"
+        type: "stock",
+        currency: stock.currency === "CAD" ? "CAD" : "USD"
       })
     })
   }
   
-  // Add top crypto
-  if (cryptoData?.coins) {
-    cryptoData.coins.slice(0, 5).forEach((coin: { symbol: string; priceCAD: number; change24h: number }) => {
+  // Add top commodities
+  if (commoditiesData?.commodities) {
+    commoditiesData.commodities.slice(0, 5).forEach((commodity: { symbol: string; priceCAD: number; change: number; changePercent: number }) => {
       tickerItems.push({
-        symbol: coin.symbol.toUpperCase(),
-        price: coin.priceCAD,
-        change: coin.change24h * coin.priceCAD / 100,
-        changePercent: coin.change24h,
-        type: "crypto"
+        symbol: commodity.symbol,
+        price: commodity.priceCAD,
+        change: commodity.change,
+        changePercent: commodity.changePercent,
+        type: "commodity",
+        currency: "CAD"
       })
     })
   }
@@ -77,7 +80,7 @@ export function LiveTicker() {
       newPrices[item.symbol] = item.price
     })
     setPrevPrices(newPrices)
-  }, [stocksData, cryptoData])
+  }, [stocksData, commoditiesData])
 
   if (tickerItems.length === 0) {
     return (
@@ -126,8 +129,8 @@ function TickerItemDisplay({
         isFlashing === "down" && "bg-chart-2/20"
       )}
     >
-      {item.type === "crypto" && (
-        <Bitcoin className="h-4 w-4 text-accent" />
+      {item.type === "commodity" && (
+        <Gem className="h-4 w-4 text-accent" />
       )}
       
       <span className="font-semibold text-sm text-foreground whitespace-nowrap">
@@ -140,7 +143,8 @@ function TickerItemDisplay({
         isFlashing === "down" && "price-down",
         !isFlashing && "text-foreground"
       )}>
-        ${item.price.toLocaleString(undefined, { 
+        {item.currency === "CAD" ? "C$" : "$"}
+        {item.price.toLocaleString(undefined, { 
           minimumFractionDigits: item.price < 1 ? 4 : 2,
           maximumFractionDigits: item.price < 1 ? 4 : 2
         })}
@@ -185,16 +189,16 @@ export function CompactTicker() {
       isPositive: s.changePercent > 0,
       isNegative: s.changePercent < 0,
     })) || []),
-    ...(economyData?.indicators ? [
+    ...(economyData?.cadUsdRate ? [
       {
         label: "CAD/USD",
-        value: economyData.indicators.find((i: { name: string }) => i.name === "CAD/USD Exchange Rate")?.value || "—",
+        value: economyData.cadUsdRate.value,
         isPositive: false,
         isNegative: false,
       },
       {
         label: "BoC Rate",
-        value: economyData.indicators.find((i: { name: string }) => i.name === "Policy Interest Rate")?.value || "—",
+        value: `${economyData.interestRate?.value || "---"}%`,
         isPositive: false,
         isNegative: false,
       }

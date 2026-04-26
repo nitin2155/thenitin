@@ -1,11 +1,9 @@
 import Link from "next/link"
 import { 
   TrendingUp, 
-  Bitcoin, 
   Landmark, 
   Home as HomeIcon, 
   Globe2, 
-  Calculator, 
   ArrowRight,
   Activity,
   BarChart3,
@@ -14,11 +12,23 @@ import {
   GitCompare,
   BookOpen,
   GraduationCap,
-  Lightbulb
+  Lightbulb,
+  Gem,
+  Building2,
+  TrendingDown
 } from "lucide-react"
 import { LiveCommodityChart } from "@/components/home/live-commodity-chart"
 
 const features = [
+  {
+    icon: Gem,
+    title: "Commodities",
+    description: "Gold, silver, oil, gas with real-time CAD prices and geopolitical impact analysis",
+    href: "/dashboard/commodities",
+    color: "text-accent",
+    bgColor: "bg-accent/10",
+    borderColor: "border-accent/20"
+  },
   {
     icon: TrendingUp,
     title: "Stock Markets",
@@ -27,15 +37,6 @@ const features = [
     color: "text-chart-1",
     bgColor: "bg-chart-1/10",
     borderColor: "border-chart-1/20"
-  },
-  {
-    icon: Bitcoin,
-    title: "Cryptocurrency",
-    description: "Top 20 coins with real-time CAD pricing and volatility tracking",
-    href: "/dashboard/crypto",
-    color: "text-accent",
-    bgColor: "bg-accent/10",
-    borderColor: "border-accent/20"
   },
   {
     icon: Landmark,
@@ -49,7 +50,7 @@ const features = [
   {
     icon: HomeIcon,
     title: "Housing Market",
-    description: "Regional benchmark prices and affordability across Canada",
+    description: "From 2010 boom to post-COVID correction - understand what drives Canadian housing",
     href: "/dashboard/housing",
     color: "text-chart-5",
     bgColor: "bg-chart-5/10",
@@ -58,20 +59,11 @@ const features = [
   {
     icon: Globe2,
     title: "Geopolitical Analysis",
-    description: "Historical events and their impact on markets and the CAD",
+    description: "Historical events and their impact on Canadian markets and the CAD",
     href: "/dashboard/geopolitics",
     color: "text-chart-4",
     bgColor: "bg-chart-4/10",
     borderColor: "border-chart-4/20"
-  },
-  {
-    icon: Calculator,
-    title: "Financial Tools",
-    description: "Mortgage calculators and investment planners for Canadians",
-    href: "/dashboard/tools",
-    color: "text-chart-3",
-    bgColor: "bg-chart-3/10",
-    borderColor: "border-chart-3/20"
   }
 ]
 
@@ -102,10 +94,10 @@ const educationalTopics = [
     insight: "TSX Energy moves ~0.7 with WTI crude"
   },
   {
-    icon: Bitcoin,
-    title: "Crypto in a Risk-Off World",
-    description: "How institutional adoption changes Bitcoin behavior during market stress",
-    insight: "BTC-equity correlation at historic highs"
+    icon: Building2,
+    title: "Canadian Housing Crisis Explained",
+    description: "From pre-COVID stability to pandemic boom and the 2023+ correction",
+    insight: "Prices fell 15-20% from peak in major cities"
   }
 ]
 
@@ -206,8 +198,8 @@ export default function Home() {
           <div className="p-8 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 text-center">
             <h2 className="text-2xl font-bold text-foreground mb-2">Start Exploring the Markets</h2>
             <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-              Access real-time data from Yahoo Finance, CoinGecko, and Bank of Canada. 
-              All free, all educational, all for you.
+              Access real-time data from Yahoo Finance and Bank of Canada. 
+              All prices in CAD. All free, all educational.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link 
@@ -273,9 +265,9 @@ export default function Home() {
             <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-muted-foreground">
               <span className="font-medium">Free Data Sources:</span>
               <span className="px-2.5 py-1 rounded-md bg-secondary border border-border">Yahoo Finance</span>
-              <span className="px-2.5 py-1 rounded-md bg-secondary border border-border">CoinGecko</span>
               <span className="px-2.5 py-1 rounded-md bg-secondary border border-border">Bank of Canada</span>
               <span className="px-2.5 py-1 rounded-md bg-secondary border border-border">Statistics Canada</span>
+              <span className="px-2.5 py-1 rounded-md bg-secondary border border-border">CREA</span>
             </div>
             
             <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-destructive/10 border border-destructive/20 max-w-2xl">

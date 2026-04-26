@@ -9,17 +9,28 @@ import { Skeleton } from "@/components/ui/skeleton"
 import {
   TrendingUp,
   TrendingDown,
-  Bitcoin,
   Landmark,
   Home,
   Globe2,
   AlertTriangle,
   ArrowRight,
   DollarSign,
-  Percent
+  Percent,
+  Gem,
+  Warehouse
 } from "lucide-react"
-import type { StockData, CryptoData, CanadianEconomicData, CanadianHousingMarket } from "@/lib/types"
+import type { StockData, CanadianEconomicData, CanadianHousingMarket } from "@/lib/types"
 import { MarketAlerts } from "@/components/ui/market-alerts"
+
+interface CommodityData {
+  id: string
+  name: string
+  symbol: string
+  price: number
+  priceCAD: number
+  change: number
+  changePercent: number
+}
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -30,8 +41,8 @@ export default function DashboardPage() {
     { refreshInterval: 60000 }
   )
 
-  const { data: cryptoData, isLoading: cryptoLoading } = useSWR<{ cryptos: CryptoData[]; cadRate: number }>(
-    "/api/crypto",
+  const { data: commoditiesData, isLoading: commoditiesLoading } = useSWR<{ commodities: CommodityData[]; cadRate: number }>(
+    "/api/commodities",
     fetcher,
     { refreshInterval: 60000 }
   )
@@ -56,7 +67,7 @@ export default function DashboardPage() {
   // Calculate market summary
   const tsxGainers = stocksData?.stocks.filter((s) => s.changePercent > 0).length || 0
   const tsxLosers = stocksData?.stocks.filter((s) => s.changePercent < 0).length || 0
-  const cryptoGainers = cryptoData?.cryptos.filter((c) => c.priceChangePercentage24h > 0).length || 0
+  const commodityGainers = commoditiesData?.commodities.filter((c) => c.changePercent > 0).length || 0
 
   // Top movers
   const topGainer = stocksData?.stocks.reduce((max, s) => 
@@ -74,7 +85,7 @@ export default function DashboardPage() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Market Overview</h1>
           <p className="text-muted-foreground mt-1">
-            Real-time Canadian market data with geopolitical context
+            Real-time Canadian market data with geopolitical context - All prices in CAD
           </p>
         </div>
         
@@ -185,22 +196,22 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        {/* Crypto Overview */}
+        {/* Commodities Overview */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-lg font-semibold flex items-center gap-2">
-              <Bitcoin className="h-5 w-5 text-chart-1" />
-              Cryptocurrency (CAD)
+              <Gem className="h-5 w-5 text-accent" />
+              Commodities (CAD)
             </CardTitle>
             <Link 
-              href="/dashboard/crypto" 
+              href="/dashboard/commodities" 
               className="text-sm text-primary hover:underline flex items-center gap-1"
             >
               View all <ArrowRight className="h-3 w-3" />
             </Link>
           </CardHeader>
           <CardContent>
-            {cryptoLoading ? (
+            {commoditiesLoading ? (
               <div className="space-y-3">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Skeleton key={i} className="h-12 w-full" />
@@ -211,43 +222,37 @@ export default function DashboardPage() {
                 <div className="flex items-center gap-4 mb-4 text-sm">
                   <span className="flex items-center gap-1 text-chart-2">
                     <TrendingUp className="h-4 w-4" />
-                    {cryptoGainers} Up 24h
+                    {commodityGainers} Up Today
                   </span>
                   <span className="text-muted-foreground">
-                    CAD Rate: {cryptoData?.cadRate.toFixed(4)}
+                    CAD Rate: {commoditiesData?.cadRate?.toFixed(4) || "---"}
                   </span>
                 </div>
                 <div className="space-y-2">
-                  {cryptoData?.cryptos.slice(0, 5).map((crypto) => (
-                    <div
-                      key={crypto.id}
-                      className="flex items-center justify-between p-3 rounded-lg bg-secondary/50"
+                  {commoditiesData?.commodities?.slice(0, 5).map((commodity) => (
+                    <Link
+                      key={commodity.id}
+                      href={`/dashboard/commodities/${commodity.id}`}
+                      className="flex items-center justify-between p-3 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors"
                     >
-                      <div className="flex items-center gap-3">
-                        <img
-                          src={crypto.image}
-                          alt={crypto.name}
-                          className="w-6 h-6 rounded-full"
-                        />
-                        <div>
-                          <p className="font-medium">{crypto.symbol}</p>
-                          <p className="text-xs text-muted-foreground">{crypto.name}</p>
-                        </div>
+                      <div>
+                        <p className="font-medium">{commodity.symbol}</p>
+                        <p className="text-xs text-muted-foreground">{commodity.name}</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-medium">C${crypto.priceCAD.toLocaleString()}</p>
+                        <p className="font-medium">C${commodity.priceCAD?.toLocaleString() || "---"}</p>
                         <p
                           className={
-                            crypto.priceChangePercentage24h >= 0
+                            commodity.changePercent >= 0
                               ? "text-xs text-chart-2"
                               : "text-xs text-destructive"
                           }
                         >
-                          {crypto.priceChangePercentage24h >= 0 ? "+" : ""}
-                          {crypto.priceChangePercentage24h.toFixed(2)}%
+                          {commodity.changePercent >= 0 ? "+" : ""}
+                          {commodity.changePercent?.toFixed(2) || "0.00"}%
                         </p>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </>
@@ -280,21 +285,14 @@ export default function DashboardPage() {
               <>
                 <div className="flex items-center gap-4 mb-4 text-sm">
                   <span className="text-muted-foreground">
-                    National Avg: C${housingData?.national.benchmarkPrice.toLocaleString()}
+                    National Avg: C${housingData?.national?.benchmarkPrice?.toLocaleString() || "---"}
                   </span>
-                  <span
-                    className={
-                      (housingData?.national.priceChange1yr || 0) >= 0
-                        ? "text-chart-2"
-                        : "text-destructive"
-                    }
-                  >
-                    {(housingData?.national.priceChange1yr || 0) >= 0 ? "+" : ""}
-                    {housingData?.national.priceChange1yr}% YoY
-                  </span>
+                  <Badge variant="outline" className="text-destructive text-xs">
+                    -12% from peak
+                  </Badge>
                 </div>
                 <div className="space-y-2">
-                  {housingData?.regions.slice(0, 4).map((region) => (
+                  {housingData?.regions?.slice(0, 4).map((region) => (
                     <div
                       key={region.region}
                       className="flex items-center justify-between p-3 rounded-lg bg-secondary/50"
@@ -304,7 +302,7 @@ export default function DashboardPage() {
                         <p className="text-xs text-muted-foreground">{region.province}</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-medium">C${region.benchmarkPrice.toLocaleString()}</p>
+                        <p className="font-medium">C${region.benchmarkPrice?.toLocaleString()}</p>
                         <p
                           className={
                             region.priceChange1yr >= 0
@@ -319,6 +317,12 @@ export default function DashboardPage() {
                     </div>
                   ))}
                 </div>
+                <div className="mt-3 p-2 rounded-md bg-chart-1/10 border border-chart-1/20">
+                  <div className="flex items-center gap-2 text-xs">
+                    <Warehouse className="h-3.5 w-3.5 text-chart-1" />
+                    <span className="text-chart-1 font-medium">Inventory up 65% - Buyer&apos;s market forming</span>
+                  </div>
+                </div>
               </>
             )}
           </CardContent>
@@ -328,7 +332,7 @@ export default function DashboardPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-lg font-semibold flex items-center gap-2">
-              <Globe2 className="h-5 w-5 text-accent" />
+              <Globe2 className="h-5 w-5 text-chart-5" />
               Geopolitical Risk Monitor
             </CardTitle>
             <Link 
@@ -340,7 +344,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {geoData?.currentRisks.map((risk) => (
+              {geoData?.currentRisks?.map((risk) => (
                 <div
                   key={risk.region}
                   className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50"
@@ -420,6 +424,46 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       )}
+
+      {/* Canadian Economy Quick View */}
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <CardTitle className="text-lg font-semibold flex items-center gap-2">
+            <Landmark className="h-5 w-5 text-primary" />
+            Canadian Economic Indicators
+          </CardTitle>
+          <Link 
+            href="/dashboard/economy" 
+            className="text-sm text-primary hover:underline flex items-center gap-1"
+          >
+            View details <ArrowRight className="h-3 w-3" />
+          </Link>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="p-3 rounded-lg bg-secondary/50">
+              <p className="text-sm text-muted-foreground">Inflation (CPI)</p>
+              <p className="text-xl font-bold">{economyData?.inflationRate?.value || "---"}%</p>
+              <p className="text-xs text-muted-foreground">Year-over-year</p>
+            </div>
+            <div className="p-3 rounded-lg bg-secondary/50">
+              <p className="text-sm text-muted-foreground">Prime Rate</p>
+              <p className="text-xl font-bold">{economyData?.primeRate?.value || "---"}%</p>
+              <p className="text-xs text-muted-foreground">Bank prime</p>
+            </div>
+            <div className="p-3 rounded-lg bg-secondary/50">
+              <p className="text-sm text-muted-foreground">GDP Growth</p>
+              <p className="text-xl font-bold">{economyData?.gdpGrowth?.value || "---"}%</p>
+              <p className="text-xs text-muted-foreground">Quarterly</p>
+            </div>
+            <div className="p-3 rounded-lg bg-secondary/50">
+              <p className="text-sm text-muted-foreground">Unemployment</p>
+              <p className="text-xl font-bold">{economyData?.unemploymentRate?.value || "---"}%</p>
+              <p className="text-xs text-muted-foreground">National rate</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
