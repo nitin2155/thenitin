@@ -12,16 +12,17 @@ import {
   X,
   BarChart3,
   Activity,
-  GitCompare,
   LayoutDashboard,
   Gem,
-  Ship
+  Ship,
+  Sparkles
 } from "lucide-react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 
 const navigation = [
   { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
+  { name: "Interactive", href: "/dashboard/interactive", icon: Sparkles, highlight: true },
   { name: "Commodities", href: "/dashboard/commodities", icon: Gem },
   { name: "Stocks", href: "/dashboard/stocks", icon: TrendingUp },
   { name: "Economy", href: "/dashboard/economy", icon: Landmark },
@@ -61,7 +62,9 @@ export function MainNav() {
                   "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md transition-colors",
                   isActive
                     ? "bg-secondary text-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                    : item.highlight 
+                      ? "text-primary hover:text-primary hover:bg-primary/10 border border-primary/20"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                 )}
               >
                 <item.icon className="h-4 w-4" />
@@ -118,7 +121,9 @@ export function MainNav() {
                     "flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-md transition-colors",
                     isActive
                       ? "bg-secondary text-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                      : item.highlight 
+                        ? "text-primary hover:text-primary hover:bg-primary/10 border border-primary/20"
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                   )}
                 >
                   <item.icon className="h-4 w-4" />
