@@ -1,21 +1,15 @@
-import { Header } from "@/components/header"
-import { Hero } from "@/components/hero"
-import { Features } from "@/components/features"
-import { Testimonials } from "@/components/testimonials"
-import { CTA } from "@/components/cta"
-import { Footer } from "@/components/footer"
-
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <main className="flex-1">
-        <Hero />
-        <Features />
-        <Testimonials />
-        <CTA />
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4">
+      <main className="flex flex-col items-center gap-6 text-center">
+        <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
+          thenitin.space
+        </h1>
+        <p className="max-w-md text-lg text-muted-foreground">
+          Something is brewing. Check back soon.
+        </p>
+        <div className="mt-4 h-px w-16 bg-border" />
       </main>
-      <Footer />
     </div>
   )
 }
