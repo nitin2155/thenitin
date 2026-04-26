@@ -14,7 +14,8 @@ import {
   Activity,
   GitCompare,
   LayoutDashboard,
-  Gem
+  Gem,
+  Ship
 } from "lucide-react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -25,8 +26,8 @@ const navigation = [
   { name: "Stocks", href: "/dashboard/stocks", icon: TrendingUp },
   { name: "Economy", href: "/dashboard/economy", icon: Landmark },
   { name: "Housing", href: "/dashboard/housing", icon: Home },
+  { name: "Tariffs", href: "/dashboard/tariffs", icon: Ship },
   { name: "Geopolitics", href: "/dashboard/geopolitics", icon: Globe2 },
-  { name: "Compare", href: "/dashboard/compare", icon: GitCompare },
 ]
 
 export function MainNav() {
