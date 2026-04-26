@@ -6,7 +6,7 @@ import {
   ArrowRight,
   TrendingUp,
   TrendingDown,
-  Home,
+  Home as HomeIcon,
   Fuel,
   Ship,
   Play,
@@ -232,7 +232,7 @@ export default function Home() {
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
-                  <Home className="h-4 w-4 text-chart-5" />
+                  <HomeIcon className="h-4 w-4 text-chart-5" />
                   <span className="text-xs font-medium text-muted-foreground">Housing</span>
                 </div>
                 <span className="text-xs font-bold text-chart-2">-12%</span>
