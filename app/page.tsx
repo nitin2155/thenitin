@@ -97,31 +97,100 @@ function MiniSparkline({ data, color }: { data: number[], color: string }) {
   )
 }
 
-// Animated background
+// Animated background with thematic line art watermarks
 function AnimatedBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       <div className="absolute inset-0 bg-grid-pattern opacity-40" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] radial-glow" />
       
-      {/* Floating chart lines */}
-      <svg className="absolute top-32 left-10 w-72 h-36 opacity-[0.07] animate-float" viewBox="0 0 200 100">
-        <polyline points="0,80 30,60 60,70 90,40 120,50 150,20 180,30 200,10" fill="none" stroke="#22c55e" strokeWidth="3" />
+      {/* Stock Chart Line Art - Top Left */}
+      <svg className="absolute top-24 left-8 w-48 h-48 opacity-[0.06] animate-float" viewBox="0 0 100 100" fill="none" stroke="#22d3ee" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        {/* Chart frame */}
+        <rect x="10" y="10" width="80" height="70" rx="4" />
+        {/* Candlesticks */}
+        <line x1="25" y1="25" x2="25" y2="55" />
+        <rect x="22" y="30" width="6" height="15" fill="#22d3ee" fillOpacity="0.3" />
+        <line x1="40" y1="20" x2="40" y2="50" />
+        <rect x="37" y="25" width="6" height="18" fill="#22d3ee" fillOpacity="0.3" />
+        <line x1="55" y1="30" x2="55" y2="60" />
+        <rect x="52" y="35" width="6" height="15" fill="#22d3ee" fillOpacity="0.3" />
+        <line x1="70" y1="22" x2="70" y2="45" />
+        <rect x="67" y="28" width="6" height="12" fill="#22d3ee" fillOpacity="0.3" />
+        {/* Trend line */}
+        <polyline points="20,55 35,45 50,50 65,35 80,25" strokeDasharray="3 2" />
+        {/* Arrow up */}
+        <polyline points="75,30 80,25 85,30" />
       </svg>
       
-      <svg className="absolute top-48 right-16 w-56 h-28 opacity-[0.07] animate-float-delayed" viewBox="0 0 200 100">
-        <polyline points="0,20 40,40 80,30 120,60 160,50 200,80" fill="none" stroke="#ef4444" strokeWidth="3" />
+      {/* House Line Art - Top Right */}
+      <svg className="absolute top-32 right-12 w-40 h-40 opacity-[0.06] animate-float-delayed" viewBox="0 0 100 100" fill="none" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        {/* House roof */}
+        <polyline points="15,50 50,20 85,50" />
+        {/* House body */}
+        <rect x="22" y="50" width="56" height="35" />
+        {/* Door */}
+        <rect x="42" y="60" width="16" height="25" />
+        {/* Windows */}
+        <rect x="28" y="58" width="10" height="10" />
+        <rect x="62" y="58" width="10" height="10" />
+        {/* Chimney */}
+        <rect x="65" y="28" width="10" height="18" />
+        {/* Price chart underneath */}
+        <polyline points="20,92 35,88 50,90 65,85 80,82" strokeDasharray="2 2" opacity="0.5" />
       </svg>
       
-      <svg className="absolute bottom-48 left-1/4 w-64 h-32 opacity-[0.07] animate-float-slow" viewBox="0 0 200 100">
-        <polyline points="0,50 50,30 100,60 150,40 200,50" fill="none" stroke="#22d3ee" strokeWidth="3" />
+      {/* Oil/Gas Barrel Line Art - Bottom Left */}
+      <svg className="absolute bottom-64 left-16 w-36 h-36 opacity-[0.06] animate-float-slow" viewBox="0 0 100 100" fill="none" stroke="#eab308" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        {/* Barrel body */}
+        <ellipse cx="50" cy="20" rx="25" ry="8" />
+        <ellipse cx="50" cy="80" rx="25" ry="8" />
+        <line x1="25" y1="20" x2="25" y2="80" />
+        <line x1="75" y1="20" x2="75" y2="80" />
+        {/* Barrel bands */}
+        <ellipse cx="50" cy="35" rx="25" ry="6" strokeDasharray="4 2" />
+        <ellipse cx="50" cy="65" rx="25" ry="6" strokeDasharray="4 2" />
+        {/* Oil drop */}
+        <path d="M50,45 Q55,52 50,60 Q45,52 50,45" fill="#eab308" fillOpacity="0.2" />
+        {/* Flame */}
+        <path d="M85,70 Q90,60 85,50 Q92,58 88,70 Q85,65 85,70" />
+      </svg>
+      
+      {/* Ship/Trade Line Art - Bottom Right */}
+      <svg className="absolute bottom-48 right-20 w-44 h-44 opacity-[0.06] animate-float" viewBox="0 0 100 100" fill="none" stroke="#8b5cf6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        {/* Ship hull */}
+        <path d="M10,70 Q15,80 50,80 Q85,80 90,70 L85,55 L15,55 Z" />
+        {/* Deck */}
+        <rect x="25" y="45" width="50" height="10" />
+        {/* Bridge */}
+        <rect x="35" y="30" width="30" height="15" />
+        {/* Smoke stack */}
+        <rect x="55" y="20" width="8" height="12" />
+        {/* Smoke */}
+        <path d="M59,20 Q65,15 62,10 Q68,12 65,5" strokeDasharray="2 2" />
+        {/* Containers */}
+        <rect x="28" y="48" width="8" height="6" />
+        <rect x="38" y="48" width="8" height="6" />
+        <rect x="54" y="48" width="8" height="6" />
+        <rect x="64" y="48" width="8" height="6" />
+        {/* Waves */}
+        <path d="M5,85 Q15,82 25,85 Q35,88 45,85 Q55,82 65,85 Q75,88 85,85 Q95,82 100,85" />
+      </svg>
+      
+      {/* Dollar/Economy Line Art - Middle */}
+      <svg className="absolute top-1/2 left-1/4 w-32 h-32 opacity-[0.04] animate-float-delayed" viewBox="0 0 100 100" fill="none" stroke="#22c55e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        {/* Dollar sign in circle */}
+        <circle cx="50" cy="50" r="35" />
+        <path d="M50,25 L50,75" />
+        <path d="M38,35 Q50,30 62,38 Q50,45 38,50 Q50,55 62,62 Q50,70 38,65" />
       </svg>
 
-      {/* Floating dots */}
-      <div className="absolute top-1/4 left-16 w-3 h-3 rounded-full bg-chart-1/20 animate-float" />
-      <div className="absolute top-1/3 right-24 w-4 h-4 rounded-full bg-primary/20 animate-float-delayed" />
-      <div className="absolute bottom-1/4 left-1/3 w-3 h-3 rounded-full bg-accent/20 animate-float-slow" />
-      <div className="absolute top-2/3 right-1/3 w-2 h-2 rounded-full bg-chart-5/20 animate-float" />
+      {/* Floating accent dots */}
+      <div className="absolute top-1/4 left-24 w-2 h-2 rounded-full bg-primary/30 animate-float" />
+      <div className="absolute top-1/3 right-32 w-3 h-3 rounded-full bg-chart-1/20 animate-float-delayed" />
+      <div className="absolute bottom-1/3 left-1/3 w-2 h-2 rounded-full bg-accent/25 animate-float-slow" />
+      <div className="absolute top-2/3 right-1/4 w-2 h-2 rounded-full bg-chart-5/20 animate-float" />
+      <div className="absolute bottom-1/4 right-1/3 w-3 h-3 rounded-full bg-primary/15 animate-float-delayed" />
     </div>
   )
 }
