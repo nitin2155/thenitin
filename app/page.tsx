@@ -105,7 +105,7 @@ function AnimatedBackground() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] radial-glow" />
       
       {/* Stock Chart Line Art - Top Left */}
-      <svg className="absolute top-24 left-8 w-48 h-48 opacity-[0.06] animate-float" viewBox="0 0 100 100" fill="none" stroke="#22d3ee" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="absolute top-24 left-8 w-48 h-48 opacity-[0.15] animate-float" viewBox="0 0 100 100" fill="none" stroke="#22d3ee" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         {/* Chart frame */}
         <rect x="10" y="10" width="80" height="70" rx="4" />
         {/* Candlesticks */}
@@ -124,7 +124,7 @@ function AnimatedBackground() {
       </svg>
       
       {/* House Line Art - Top Right */}
-      <svg className="absolute top-32 right-12 w-40 h-40 opacity-[0.06] animate-float-delayed" viewBox="0 0 100 100" fill="none" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="absolute top-32 right-12 w-44 h-44 opacity-[0.15] animate-float-delayed" viewBox="0 0 100 100" fill="none" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         {/* House roof */}
         <polyline points="15,50 50,20 85,50" />
         {/* House body */}
@@ -141,7 +141,7 @@ function AnimatedBackground() {
       </svg>
       
       {/* Oil/Gas Barrel Line Art - Bottom Left */}
-      <svg className="absolute bottom-64 left-16 w-36 h-36 opacity-[0.06] animate-float-slow" viewBox="0 0 100 100" fill="none" stroke="#eab308" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="absolute bottom-64 left-16 w-40 h-40 opacity-[0.15] animate-float-slow" viewBox="0 0 100 100" fill="none" stroke="#eab308" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         {/* Barrel body */}
         <ellipse cx="50" cy="20" rx="25" ry="8" />
         <ellipse cx="50" cy="80" rx="25" ry="8" />
@@ -157,7 +157,7 @@ function AnimatedBackground() {
       </svg>
       
       {/* Ship/Trade Line Art - Bottom Right */}
-      <svg className="absolute bottom-48 right-20 w-44 h-44 opacity-[0.06] animate-float" viewBox="0 0 100 100" fill="none" stroke="#8b5cf6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="absolute bottom-48 right-20 w-48 h-48 opacity-[0.15] animate-float" viewBox="0 0 100 100" fill="none" stroke="#8b5cf6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         {/* Ship hull */}
         <path d="M10,70 Q15,80 50,80 Q85,80 90,70 L85,55 L15,55 Z" />
         {/* Deck */}
@@ -178,7 +178,7 @@ function AnimatedBackground() {
       </svg>
       
       {/* Dollar/Economy Line Art - Middle */}
-      <svg className="absolute top-1/2 left-1/4 w-32 h-32 opacity-[0.04] animate-float-delayed" viewBox="0 0 100 100" fill="none" stroke="#22c55e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="absolute top-1/2 left-1/4 w-36 h-36 opacity-[0.12] animate-float-delayed" viewBox="0 0 100 100" fill="none" stroke="#22c55e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         {/* Dollar sign in circle */}
         <circle cx="50" cy="50" r="35" />
         <path d="M50,25 L50,75" />

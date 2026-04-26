@@ -703,6 +703,101 @@ export default function HousingPage() {
         </TabsContent>
       </Tabs>
 
+      {/* City-by-City Impact Analysis */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Building2 className="h-5 w-5 text-primary" />
+            City-by-City Impact Analysis
+          </CardTitle>
+          <CardDescription>
+            How interest rate changes affect affordability in major Canadian cities
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { city: "Toronto", province: "ON", avgPrice: 1089000, peakPrice: 1334000, affordability: 78, rateImpact: -18, mortgageIncrease: 1420, flag: "🏙️" },
+              { city: "Vancouver", province: "BC", avgPrice: 1195000, peakPrice: 1410000, affordability: 85, rateImpact: -15, mortgageIncrease: 1580, flag: "🌊" },
+              { city: "Calgary", province: "AB", avgPrice: 585000, peakPrice: 615000, affordability: 42, rateImpact: +5, mortgageIncrease: 680, flag: "🏔️" },
+              { city: "Montreal", province: "QC", avgPrice: 535000, peakPrice: 580000, affordability: 48, rateImpact: -8, mortgageIncrease: 610, flag: "⚜️" },
+              { city: "Ottawa", province: "ON", avgPrice: 645000, peakPrice: 780000, affordability: 52, rateImpact: -17, mortgageIncrease: 750, flag: "🍁" },
+              { city: "Edmonton", province: "AB", avgPrice: 415000, peakPrice: 445000, affordability: 35, rateImpact: +3, mortgageIncrease: 480, flag: "🏢" },
+              { city: "Winnipeg", province: "MB", avgPrice: 365000, peakPrice: 385000, affordability: 32, rateImpact: -2, mortgageIncrease: 420, flag: "🌾" },
+              { city: "Halifax", province: "NS", avgPrice: 520000, peakPrice: 565000, affordability: 55, rateImpact: -8, mortgageIncrease: 600, flag: "⚓" },
+              { city: "Victoria", province: "BC", avgPrice: 895000, peakPrice: 985000, affordability: 72, rateImpact: -9, mortgageIncrease: 1050, flag: "🏛️" },
+              { city: "Hamilton", province: "ON", avgPrice: 785000, peakPrice: 1010000, affordability: 62, rateImpact: -22, mortgageIncrease: 920, flag: "🔧" },
+              { city: "Kitchener", province: "ON", avgPrice: 725000, peakPrice: 920000, affordability: 58, rateImpact: -21, mortgageIncrease: 850, flag: "💻" },
+              { city: "London", province: "ON", avgPrice: 595000, peakPrice: 745000, affordability: 50, rateImpact: -20, mortgageIncrease: 695, flag: "🎓" },
+            ].map((city) => (
+              <div 
+                key={city.city}
+                className="p-4 rounded-lg bg-secondary/50 border border-border hover:border-primary/30 transition-colors"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl">{city.flag}</span>
+                    <div>
+                      <p className="font-bold text-foreground">{city.city}</p>
+                      <p className="text-xs text-muted-foreground">{city.province}</p>
+                    </div>
+                  </div>
+                  <Badge 
+                    variant="outline" 
+                    className={city.affordability > 60 ? "text-destructive border-destructive/30" : city.affordability > 45 ? "text-accent border-accent/30" : "text-chart-1 border-chart-1/30"}
+                  >
+                    {city.affordability}% income
+                  </Badge>
+                </div>
+                
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Current Avg</span>
+                    <span className="font-semibold">C${city.avgPrice.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">From Peak</span>
+                    <span className={`font-semibold ${city.rateImpact < 0 ? "text-destructive" : "text-chart-1"}`}>
+                      {city.rateImpact > 0 ? "+" : ""}{city.rateImpact}%
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Rate Impact/mo</span>
+                    <span className="font-semibold text-accent">+C${city.mortgageIncrease.toLocaleString()}</span>
+                  </div>
+                </div>
+                
+                {/* Affordability bar */}
+                <div className="mt-3 pt-3 border-t border-border/50">
+                  <div className="flex justify-between text-xs mb-1">
+                    <span className="text-muted-foreground">Affordability</span>
+                    <span className={city.affordability > 60 ? "text-destructive" : city.affordability > 45 ? "text-accent" : "text-chart-1"}>
+                      {city.affordability > 60 ? "Crisis" : city.affordability > 45 ? "Stretched" : "Manageable"}
+                    </span>
+                  </div>
+                  <div className="h-2 rounded-full bg-muted overflow-hidden">
+                    <div 
+                      className={`h-full rounded-full transition-all ${
+                        city.affordability > 60 ? "bg-destructive" : city.affordability > 45 ? "bg-accent" : "bg-chart-1"
+                      }`}
+                      style={{ width: `${Math.min(city.affordability, 100)}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="mt-6 p-4 rounded-lg bg-primary/5 border border-primary/20">
+            <p className="text-sm text-muted-foreground">
+              <span className="font-semibold text-foreground">Affordability Index: </span>
+              Percentage of median household income required for mortgage payments (principal + interest) on an average-priced home at current rates.
+              Below 35% = Affordable | 35-50% = Stretched | Above 50% = Unaffordable for most families.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Disclaimer */}
       <Card className="bg-secondary/30">
         <CardContent className="p-4">
