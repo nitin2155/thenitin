@@ -135,13 +135,23 @@ const quickStats = [
   { label: "Oil", value: "+2.4%", trend: "up" as const },
 ]
 
-export default function Home() {
-  const [sparklines] = useState(() => ({
-    stocks: generateSparkline("up"),
-    housing: generateSparkline("down"),
-    gas: generateSparkline("volatile"),
-    trade: generateSparkline("up"),
-  }))
+export default function HomePage() {
+  const [sparklines, setSparklines] = useState({
+    stocks: Array(20).fill(50),
+    housing: Array(20).fill(50),
+    gas: Array(20).fill(50),
+    trade: Array(20).fill(50),
+  })
+  
+  // Generate sparklines on client only to avoid hydration mismatch
+  useEffect(() => {
+    setSparklines({
+      stocks: generateSparkline("up"),
+      housing: generateSparkline("down"),
+      gas: generateSparkline("volatile"),
+      trade: generateSparkline("up"),
+    })
+  }, [])
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">

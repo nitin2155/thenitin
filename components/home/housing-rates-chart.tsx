@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { 
-  Home, 
+  Home as HomeIcon, 
   ArrowRight,
   TrendingUp,
   TrendingDown,
@@ -75,7 +75,7 @@ export function HousingRatesChart() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-chart-5/10 border border-chart-5/20">
-                <Home className="h-5 w-5 text-chart-5" />
+                <HomeIcon className="h-5 w-5 text-chart-5" />
               </div>
               <div>
                 <CardTitle className="text-lg flex items-center gap-2">
