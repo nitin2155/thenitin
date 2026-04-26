@@ -3,11 +3,11 @@ import {
   TrendingUp, 
   Bitcoin, 
   Landmark, 
-  Home, 
+  Home as HomeIcon, 
   Globe2, 
   Calculator, 
   ArrowRight,
-  MapleLeaf,
+  Leaf,
   BarChart3
 } from "lucide-react"
 
@@ -37,7 +37,7 @@ const features = [
     bgColor: "bg-chart-4/10"
   },
   {
-    icon: Home,
+    icon: HomeIcon,
     title: "Housing Market",
     description: "Regional prices and affordability across Canada",
     href: "/dashboard/housing",
@@ -76,7 +76,7 @@ export default function Home() {
         <div className="flex flex-col items-center gap-4">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-destructive/10 border border-destructive/20">
-              <MapleLeaf className="h-6 w-6 text-destructive" />
+              <Leaf className="h-6 w-6 text-destructive" />
             </div>
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 border border-primary/20">
               <BarChart3 className="h-6 w-6 text-primary" />
