@@ -12,8 +12,7 @@ import {
   Play,
   Sparkles,
   Globe,
-  Send,
-  MapPin
+  Send
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -351,9 +350,9 @@ export default function HomePage() {
       </section>
 
       {/* World Map Section */}
-      <section className="relative z-10 px-4 py-16 border-t border-border">
+      <section className="relative z-10 px-4 py-16 border-t border-border bg-gradient-to-b from-background to-card/50">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-8">
+          <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-4">
               <Globe className="h-4 w-4 text-primary" />
               <span className="text-sm font-medium text-primary">Global Expansion</span>
@@ -362,53 +361,65 @@ export default function HomePage() {
             <p className="text-muted-foreground">Currently focused on Canada. Global markets coming soon.</p>
           </div>
           
-          {/* Simple World Map SVG */}
-          <div className="relative max-w-3xl mx-auto">
-            <svg viewBox="0 0 1000 500" className="w-full h-auto opacity-30">
-              {/* Simplified world map paths */}
-              <path d="M165,135 L175,140 L185,130 L200,145 L210,135 L225,150 L220,165 L210,175 L195,180 L180,175 L165,165 L160,150 Z" fill="currentColor" className="text-muted-foreground/50" />
-              <path d="M420,90 L500,85 L580,100 L600,140 L590,180 L550,200 L480,210 L430,190 L410,150 L420,110 Z" fill="currentColor" className="text-muted-foreground/50" />
-              <path d="M450,210 L520,200 L580,220 L600,280 L580,340 L520,360 L460,340 L440,280 Z" fill="currentColor" className="text-muted-foreground/50" />
-              <path d="M700,120 L820,100 L900,130 L920,200 L890,280 L820,320 L740,300 L700,240 L710,180 Z" fill="currentColor" className="text-muted-foreground/50" />
-              <path d="M750,320 L850,310 L920,350 L900,420 L820,450 L750,420 L740,370 Z" fill="currentColor" className="text-muted-foreground/50" />
-              <path d="M200,320 L280,300 L340,330 L350,400 L310,450 L240,460 L190,420 L185,360 Z" fill="currentColor" className="text-muted-foreground/50" />
-              {/* North America - Canada highlighted */}
-              <path d="M120,100 L220,70 L320,80 L350,120 L340,180 L280,200 L200,210 L140,190 L110,150 Z" fill="currentColor" className="text-primary/40" />
-            </svg>
-            
-            {/* Canada Pulsing Dot */}
-            <div className="absolute top-[22%] left-[22%] transform -translate-x-1/2 -translate-y-1/2">
-              <div className="relative">
-                <span className="absolute inline-flex h-8 w-8 animate-ping rounded-full bg-primary opacity-40" />
-                <span className="absolute inline-flex h-8 w-8 animate-ping rounded-full bg-primary opacity-20" style={{ animationDelay: '0.5s' }} />
-                <span className="relative inline-flex h-4 w-4 rounded-full bg-primary border-2 border-background" />
-                <div className="absolute left-6 top-0 whitespace-nowrap">
-                  <div className="flex items-center gap-1.5 bg-card/90 backdrop-blur px-3 py-1.5 rounded-lg border border-primary/30">
-                    <MapPin className="h-3.5 w-3.5 text-primary" />
-                    <span className="text-xs font-semibold text-foreground">Canada</span>
-                    <span className="text-[10px] text-chart-1">LIVE</span>
-                  </div>
-                </div>
+          {/* Region Cards Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            {/* Canada - Active */}
+            <div className="relative p-6 rounded-xl bg-primary/10 border-2 border-primary overflow-hidden group">
+              <div className="absolute top-2 right-2">
+                <span className="relative flex h-3 w-3">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-chart-1 opacity-75" />
+                  <span className="relative inline-flex h-3 w-3 rounded-full bg-chart-1" />
+                </span>
+              </div>
+              <div className="text-4xl mb-3">🇨🇦</div>
+              <h3 className="font-bold text-foreground mb-1">Canada</h3>
+              <p className="text-xs text-primary font-semibold">LIVE NOW</p>
+              <div className="mt-3 flex flex-wrap gap-1">
+                <span className="text-[10px] px-2 py-0.5 rounded bg-primary/20 text-primary">TSX</span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-primary/20 text-primary">Housing</span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-primary/20 text-primary">BoC</span>
               </div>
             </div>
             
-            {/* Coming Soon Dots */}
-            <div className="absolute top-[30%] left-[50%]">
-              <span className="inline-flex h-2 w-2 rounded-full bg-muted-foreground/40" />
+            {/* USA - Coming Soon */}
+            <div className="relative p-6 rounded-xl bg-card border border-border opacity-60 hover:opacity-80 transition-opacity">
+              <div className="absolute top-2 right-2 text-[10px] text-muted-foreground">SOON</div>
+              <div className="text-4xl mb-3 grayscale">🇺🇸</div>
+              <h3 className="font-bold text-foreground mb-1">United States</h3>
+              <p className="text-xs text-muted-foreground">Q2 2026</p>
+              <div className="mt-3 flex flex-wrap gap-1">
+                <span className="text-[10px] px-2 py-0.5 rounded bg-muted text-muted-foreground">S&P 500</span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-muted text-muted-foreground">Fed</span>
+              </div>
             </div>
-            <div className="absolute top-[55%] left-[48%]">
-              <span className="inline-flex h-2 w-2 rounded-full bg-muted-foreground/40" />
+            
+            {/* Europe - Coming Soon */}
+            <div className="relative p-6 rounded-xl bg-card border border-border opacity-60 hover:opacity-80 transition-opacity">
+              <div className="absolute top-2 right-2 text-[10px] text-muted-foreground">SOON</div>
+              <div className="text-4xl mb-3 grayscale">🇪🇺</div>
+              <h3 className="font-bold text-foreground mb-1">Europe</h3>
+              <p className="text-xs text-muted-foreground">Q3 2026</p>
+              <div className="mt-3 flex flex-wrap gap-1">
+                <span className="text-[10px] px-2 py-0.5 rounded bg-muted text-muted-foreground">FTSE</span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-muted text-muted-foreground">ECB</span>
+              </div>
             </div>
-            <div className="absolute top-[35%] left-[80%]">
-              <span className="inline-flex h-2 w-2 rounded-full bg-muted-foreground/40" />
-            </div>
-            <div className="absolute top-[70%] left-[78%]">
-              <span className="inline-flex h-2 w-2 rounded-full bg-muted-foreground/40" />
+            
+            {/* India - Coming Soon */}
+            <div className="relative p-6 rounded-xl bg-card border border-border opacity-60 hover:opacity-80 transition-opacity">
+              <div className="absolute top-2 right-2 text-[10px] text-muted-foreground">SOON</div>
+              <div className="text-4xl mb-3 grayscale">🇮🇳</div>
+              <h3 className="font-bold text-foreground mb-1">India</h3>
+              <p className="text-xs text-muted-foreground">Q4 2026</p>
+              <div className="mt-3 flex flex-wrap gap-1">
+                <span className="text-[10px] px-2 py-0.5 rounded bg-muted text-muted-foreground">NIFTY</span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-muted text-muted-foreground">RBI</span>
+              </div>
             </div>
           </div>
           
-          <p className="text-center text-sm text-muted-foreground mt-6">
-            US, Europe, Asia-Pacific analysis in development
+          <p className="text-center text-sm text-muted-foreground mt-8">
+            Want us to prioritize a specific market? Let us know below!
           </p>
         </div>
       </section>
