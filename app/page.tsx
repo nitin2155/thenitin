@@ -1,4 +1,5 @@
-import { Brain, BarChart3, Sparkles } from "lucide-react"
+import Link from "next/link"
+import { Brain, BarChart3, Sparkles, Globe2, TrendingUp, ArrowRight } from "lucide-react"
 
 export default function Home() {
   return (
@@ -38,8 +39,37 @@ export default function Home() {
         {/* Description */}
         <p className="max-w-md text-lg text-muted-foreground leading-relaxed">
           Intelligent insights. Real-time data processing. 
-          <span className="text-accent"> Coming soon.</span>
+          <span className="text-accent"> Now live.</span>
         </p>
+
+        {/* Feature Card - Stocks Dashboard */}
+        <Link 
+          href="/stocks" 
+          className="group w-full max-w-md rounded-xl bg-card border border-border p-6 hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/5"
+        >
+          <div className="flex items-start gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 border border-primary/20 group-hover:bg-primary/20 transition-colors">
+              <Globe2 className="h-6 w-6 text-primary" />
+            </div>
+            <div className="flex-1 text-left">
+              <div className="flex items-center gap-2 mb-1">
+                <h3 className="font-semibold text-foreground">Geopolitical Stock Tracker</h3>
+                <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Track top 20 stocks with real-time geopolitical impact analysis
+              </p>
+              <div className="flex items-center gap-2 mt-3">
+                <span className="flex items-center gap-1 text-xs text-chart-2">
+                  <TrendingUp className="h-3 w-3" />
+                  Live Data
+                </span>
+                <span className="text-xs text-muted-foreground">|</span>
+                <span className="text-xs text-muted-foreground">Free API</span>
+              </div>
+            </div>
+          </div>
+        </Link>
 
         {/* Status indicator */}
         <div className="flex items-center gap-2 rounded-full bg-secondary/50 border border-border px-4 py-2">
@@ -47,7 +77,7 @@ export default function Home() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
           </span>
-          <span className="text-sm text-muted-foreground">In Development</span>
+          <span className="text-sm text-muted-foreground">More Features Coming</span>
         </div>
       </main>
     </div>
