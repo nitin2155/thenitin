@@ -7,7 +7,7 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'The Nitin - Real-Time Financial Intelligence',
+  title: 'Statistica - Your Own Hub | Real-Time Financial Intelligence',
   description: 'Live stock market data, cryptocurrency tracking in CAD, Bank of Canada economic indicators, Canadian housing analysis, and geopolitical impact insights. Free educational platform for Canadian investors.',
   generator: 'v0.app',
   icons: {

@@ -12,7 +12,7 @@ import {
   Calculator,
   Menu,
   X,
-  Zap,
+  BarChart3,
   Activity,
   GitCompare,
   LayoutDashboard
@@ -40,12 +40,12 @@ export function MainNav() {
       <div className="container flex h-16 items-center px-4">
         <Link href="/dashboard" className="flex items-center gap-2 mr-8">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30">
-            <Zap className="h-5 w-5 text-primary" />
+            <BarChart3 className="h-5 w-5 text-primary" />
           </div>
-          <span className="font-bold text-xl hidden sm:inline-block tracking-tight">
-            <span className="text-foreground">The</span>
-            <span className="text-primary">Nitin</span>
-          </span>
+          <div className="hidden sm:flex flex-col">
+            <span className="font-bold text-lg tracking-tight leading-none text-primary">Statistica</span>
+            <span className="text-[10px] text-muted-foreground tracking-wide">your own hub</span>
+          </div>
         </Link>
 
         {/* Desktop Navigation */}

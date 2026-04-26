@@ -7,7 +7,6 @@ import {
   Globe2, 
   Calculator, 
   ArrowRight,
-  Zap,
   Activity,
   BarChart3,
   Bell,
@@ -126,18 +125,17 @@ export default function Home() {
           {/* Logo */}
           <div className="flex items-center gap-4">
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30 glow-primary">
-              <Zap className="h-7 w-7 text-primary" />
+              <BarChart3 className="h-7 w-7 text-primary" />
             </div>
           </div>
           
           {/* Brand */}
           <div className="flex flex-col gap-2">
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-              <span className="text-foreground">The</span>
-              <span className="text-primary">Nitin</span>
+              <span className="text-primary">Statistica</span>
             </h1>
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
-              Your Financial Education Hub
+              Your Own Hub
             </p>
           </div>
 
@@ -296,7 +294,7 @@ export default function Home() {
               <span>|</span>
               <span>For the Canadian community</span>
               <span>|</span>
-              <span className="text-primary">TheNitin.space</span>
+              <span className="text-primary">Statistica</span>
             </div>
           </div>
         </div>
