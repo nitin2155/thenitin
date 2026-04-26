@@ -29,7 +29,7 @@ export default function DashboardLayout({
               Live Data
             </span>
             <span>|</span>
-            <span>Statistica</span>
+            <span>Nitin&apos;s space</span>
           </div>
         </div>
       </footer>

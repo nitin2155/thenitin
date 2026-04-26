@@ -123,7 +123,7 @@ export default function ComparePage() {
         
         {selectedItems.length > 0 && (
           <ShareButton 
-            text={`Comparing: ${selectedItems.map(i => i.symbol).join(" vs ")} - via Statistica`}
+            text={`Comparing: ${selectedItems.map(i => i.symbol).join(" vs ")} - via Nitin's space`}
           />
         )}
       </div>

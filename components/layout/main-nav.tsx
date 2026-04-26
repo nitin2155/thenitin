@@ -10,7 +10,6 @@ import {
   Globe2,
   Menu,
   X,
-  BarChart3,
   Activity,
   LayoutDashboard,
   Gem,
@@ -38,13 +37,16 @@ export function MainNav() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center px-4">
-        <Link href="/dashboard" className="flex items-center gap-2 mr-8">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30">
-            <BarChart3 className="h-5 w-5 text-primary" />
-          </div>
+        <Link href="/" className="flex items-center gap-3 mr-8 group">
           <div className="hidden sm:flex flex-col">
-            <span className="font-bold text-lg tracking-tight leading-none text-primary">Statistica</span>
-            <span className="text-[10px] text-muted-foreground tracking-wide">your own hub</span>
+            <span className="font-bold text-xl tracking-tight leading-none">
+              <span className="text-foreground">Nitin&apos;s</span>
+              <span className="text-primary ml-1">space</span>
+            </span>
+            <span className="text-[10px] text-muted-foreground tracking-wide flex items-center gap-1">
+              Hub is growing
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-chart-1 animate-live-pulse" />
+            </span>
           </div>
         </Link>
 

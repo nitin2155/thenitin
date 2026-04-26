@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { BarChart3, Loader2 } from "lucide-react"
+import { Loader2 } from "lucide-react"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -42,10 +42,10 @@ export default function LoginPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <Link href="/" className="flex items-center justify-center gap-2 mb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30">
-              <BarChart3 className="h-5 w-5 text-primary" />
-            </div>
-            <span className="font-bold text-xl">Statistica</span>
+            <span className="font-bold text-xl">
+              <span className="text-foreground">Nitin&apos;s</span>
+              <span className="text-primary ml-1">space</span>
+            </span>
           </Link>
           <CardTitle>Welcome back</CardTitle>
           <CardDescription>Sign in to access your saved data and personalized insights</CardDescription>
