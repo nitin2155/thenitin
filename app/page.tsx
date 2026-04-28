@@ -452,7 +452,7 @@ export default function HomePage() {
             {/* USA - Coming Soon */}
             <div className="relative p-6 rounded-xl bg-card border border-border opacity-60 hover:opacity-80 transition-opacity">
               <div className="absolute top-2 right-2 text-[10px] text-muted-foreground">SOON</div>
-              <div className="text-4xl mb-3 grayscale">🇺🇸</div>
+              <div className="text-4xl mb-3">🇺🇸</div>
               <h3 className="font-bold text-foreground mb-1">United States</h3>
               <p className="text-xs text-muted-foreground">Q2 2026</p>
               <div className="mt-3 flex flex-wrap gap-1">
@@ -464,7 +464,7 @@ export default function HomePage() {
             {/* Europe - Coming Soon */}
             <div className="relative p-6 rounded-xl bg-card border border-border opacity-60 hover:opacity-80 transition-opacity">
               <div className="absolute top-2 right-2 text-[10px] text-muted-foreground">SOON</div>
-              <div className="text-4xl mb-3 grayscale">🇪🇺</div>
+              <div className="text-4xl mb-3">🇪🇺</div>
               <h3 className="font-bold text-foreground mb-1">Europe</h3>
               <p className="text-xs text-muted-foreground">Q3 2026</p>
               <div className="mt-3 flex flex-wrap gap-1">
@@ -476,7 +476,7 @@ export default function HomePage() {
             {/* India - Coming Soon */}
             <div className="relative p-6 rounded-xl bg-card border border-border opacity-60 hover:opacity-80 transition-opacity">
               <div className="absolute top-2 right-2 text-[10px] text-muted-foreground">SOON</div>
-              <div className="text-4xl mb-3 grayscale">🇮🇳</div>
+              <div className="text-4xl mb-3">🇮🇳</div>
               <h3 className="font-bold text-foreground mb-1">India</h3>
               <p className="text-xs text-muted-foreground">Q4 2026</p>
               <div className="mt-3 flex flex-wrap gap-1">
@@ -492,14 +492,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Suggestions Section - Black Background */}
-      <section className="relative z-10 bg-black py-16 px-4">
+      {/* Suggestions Section - Dark Blue Background */}
+      <section className="relative z-10 bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-900 py-16 px-4">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
               What Should We Build Next?
             </h2>
-            <p className="text-gray-400">
+            <p className="text-blue-300">
               Your feedback shapes this hub. Tell us what analysis would help you most.
             </p>
           </div>
@@ -508,35 +508,35 @@ export default function HomePage() {
             <div className="grid sm:grid-cols-2 gap-4">
               <Input 
                 placeholder="Your name (optional)" 
-                className="bg-gray-900 border-gray-800 text-white placeholder:text-gray-500 focus:border-primary"
+                className="bg-white/5 border-blue-700/50 text-white placeholder:text-blue-400 focus:border-blue-400 focus:bg-white/10"
               />
               <Input 
                 placeholder="Email (optional)" 
                 type="email"
-                className="bg-gray-900 border-gray-800 text-white placeholder:text-gray-500 focus:border-primary"
+                className="bg-white/5 border-blue-700/50 text-white placeholder:text-blue-400 focus:border-blue-400 focus:bg-white/10"
               />
             </div>
             <Textarea 
               placeholder="What would you like to see? More sectors? Different countries? Specific analysis tools? Let us know..."
               rows={4}
-              className="bg-gray-900 border-gray-800 text-white placeholder:text-gray-500 focus:border-primary resize-none"
+              className="bg-white/5 border-blue-700/50 text-white placeholder:text-blue-400 focus:border-blue-400 focus:bg-white/10 resize-none"
             />
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1 rounded-full bg-gray-800 text-gray-400 text-xs cursor-pointer hover:bg-gray-700 transition-colors">US Markets</span>
-                <span className="px-3 py-1 rounded-full bg-gray-800 text-gray-400 text-xs cursor-pointer hover:bg-gray-700 transition-colors">UK Analysis</span>
-                <span className="px-3 py-1 rounded-full bg-gray-800 text-gray-400 text-xs cursor-pointer hover:bg-gray-700 transition-colors">India Markets</span>
-                <span className="px-3 py-1 rounded-full bg-gray-800 text-gray-400 text-xs cursor-pointer hover:bg-gray-700 transition-colors">Currency Tools</span>
+                <span className="px-3 py-1 rounded-full bg-blue-800/50 text-blue-200 text-xs cursor-pointer hover:bg-blue-700/50 transition-colors">US Markets</span>
+                <span className="px-3 py-1 rounded-full bg-blue-800/50 text-blue-200 text-xs cursor-pointer hover:bg-blue-700/50 transition-colors">UK Analysis</span>
+                <span className="px-3 py-1 rounded-full bg-blue-800/50 text-blue-200 text-xs cursor-pointer hover:bg-blue-700/50 transition-colors">India Markets</span>
+                <span className="px-3 py-1 rounded-full bg-blue-800/50 text-blue-200 text-xs cursor-pointer hover:bg-blue-700/50 transition-colors">Currency Tools</span>
               </div>
-              <Button className="gap-2 bg-primary hover:bg-primary/90">
+              <Button className="gap-2 bg-blue-500 text-white hover:bg-blue-400 font-semibold">
                 <Send className="h-4 w-4" />
                 Submit Suggestion
               </Button>
             </div>
           </form>
           
-          <div className="mt-8 pt-8 border-t border-gray-800 text-center">
-            <p className="text-sm text-gray-500">
+          <div className="mt-8 pt-8 border-t border-blue-800/50 text-center">
+            <p className="text-sm text-blue-400">
               Built for those who think ahead
             </p>
           </div>
