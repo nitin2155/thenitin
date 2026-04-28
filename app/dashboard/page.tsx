@@ -6,17 +6,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { StatCard } from "@/components/ui/stat-card"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Button } from "@/components/ui/button"
 import { SectionCard, SectionDivider } from "@/components/dashboard/section-card"
 import { HistoricalAnalysisModal } from "@/components/dashboard/historical-analysis-modal"
+import { ScenarioCard, TrendingScenarios, ProbabilityGauge } from "@/components/dashboard/scenario-card"
+import { MARKET_SCENARIOS, getTrendingScenarios, getScenariosByCategory } from "@/lib/scenarios"
 import {
   TrendingUp,
   TrendingDown,
-  Landmark,
   Home,
-  Globe2,
   AlertTriangle,
-  ArrowRight,
   DollarSign,
   Percent,
   Gem,
@@ -24,7 +22,11 @@ import {
   BarChart3,
   Scale,
   Ship,
-  History
+  HelpCircle,
+  Sparkles,
+  Globe2,
+  Target,
+  Activity
 } from "lucide-react"
 import type { StockData, CanadianEconomicData, CanadianHousingMarket } from "@/lib/types"
 import { MarketAlerts } from "@/components/ui/market-alerts"
@@ -86,14 +88,27 @@ export default function DashboardPage() {
   // High risk regions count
   const highRiskCount = geoData?.currentRisks.filter((r) => r.riskLevel === "high").length || 0
 
+  // Get trending scenarios
+  const trendingScenarios = getTrendingScenarios()
+  const tradeScenarios = getScenariosByCategory("trade")
+  const geopoliticsScenarios = getScenariosByCategory("geopolitics")
+  const monetaryScenarios = getScenariosByCategory("monetary")
+  const marketScenarios = getScenariosByCategory("markets")
+
   return (
     <div className="space-y-8">
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Market Overview</h1>
+          <h1 className="text-3xl font-bold tracking-tight flex items-center gap-3">
+            Market Analysis
+            <Badge variant="outline" className="text-xs font-normal">
+              <Activity className="h-3 w-3 mr-1" />
+              Live
+            </Badge>
+          </h1>
           <p className="text-muted-foreground mt-1">
-            Real-time Canadian market data with geopolitical context - All prices in CAD
+            Probabilistic forecasting and scenario analysis - All prices in CAD
           </p>
         </div>
         
@@ -130,12 +145,166 @@ export default function DashboardPage() {
           className={economyLoading ? "animate-pulse" : ""}
         />
         <StatCard
-          title="Geopolitical Risks"
-          value={highRiskCount}
-          icon={AlertTriangle}
-          iconColor="text-destructive"
-          description="High severity"
+          title="Active Scenarios"
+          value={MARKET_SCENARIOS.filter(s => s.status === "active").length}
+          icon={Target}
+          iconColor="text-primary"
+          description="What-If Analysis"
         />
+      </div>
+
+      {/* ==================== WHAT IF SCENARIOS SECTION ==================== */}
+      <SectionDivider 
+        title="What If Scenarios" 
+        icon={HelpCircle}
+        description="Probabilistic forecasting - Click any scenario for detailed analysis"
+      />
+      
+      {/* Featured Scenarios */}
+      <div className="grid gap-6 lg:grid-cols-3">
+        {/* Main featured scenario */}
+        <div className="lg:col-span-2">
+          <Card className="h-full border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+            <CardHeader>
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="h-5 w-5 text-primary" />
+                <span className="text-sm font-medium text-primary">Featured Scenario</span>
+              </div>
+              <CardTitle className="text-xl">
+                {trendingScenarios[0]?.question}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center gap-8">
+                <ProbabilityGauge probability={trendingScenarios[0]?.probability || 0} size="large" />
+                <div className="flex-1 space-y-4">
+                  <p className="text-sm text-muted-foreground">
+                    {trendingScenarios[0]?.description}
+                  </p>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="p-3 rounded-lg bg-secondary/50">
+                      <p className="text-xs text-muted-foreground mb-1">24h Volume</p>
+                      <p className="font-bold">${((trendingScenarios[0]?.volume24h || 0) / 1_000_000).toFixed(1)}M</p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-secondary/50">
+                      <p className="text-xs text-muted-foreground mb-1">Participants</p>
+                      <p className="font-bold">{(trendingScenarios[0]?.participants || 0).toLocaleString()}</p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-secondary/50">
+                      <p className="text-xs text-muted-foreground mb-1">Sentiment</p>
+                      <p className={cn(
+                        "font-bold capitalize",
+                        trendingScenarios[0]?.sentiment === "bullish" ? "text-chart-1" :
+                        trendingScenarios[0]?.sentiment === "bearish" ? "text-destructive" : "text-foreground"
+                      )}>
+                        {trendingScenarios[0]?.sentiment}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="pt-2">
+                    <p className="text-xs text-muted-foreground mb-2">Top projected impacts:</p>
+                    <div className="flex flex-wrap gap-2">
+                      {trendingScenarios[0]?.projectedImpacts.slice(0, 4).map((impact) => (
+                        <Badge 
+                          key={impact.asset}
+                          variant="secondary"
+                          className={cn(
+                            impact.projectedChange > 0 ? "text-chart-1" : "text-destructive"
+                          )}
+                        >
+                          {impact.asset} {impact.projectedChange > 0 ? "+" : ""}{impact.projectedChange}%
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Click to view full analysis */}
+              <div className="mt-4">
+                <ScenarioCard scenario={trendingScenarios[0]} compact />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        
+        {/* Trending sidebar */}
+        <TrendingScenarios scenarios={trendingScenarios.slice(1)} />
+      </div>
+
+      {/* Scenario Categories */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* Trade Scenarios */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Ship className="h-5 w-5 text-chart-5" />
+              Trade & Tariffs
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {tradeScenarios.slice(0, 3).map((scenario) => (
+              <ScenarioCard key={scenario.id} scenario={scenario} compact />
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Monetary Policy Scenarios */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Percent className="h-5 w-5 text-chart-3" />
+              Monetary Policy
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {monetaryScenarios.slice(0, 3).map((scenario) => (
+              <ScenarioCard key={scenario.id} scenario={scenario} compact />
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Geopolitical Scenarios */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Globe2 className="h-5 w-5 text-destructive" />
+              Geopolitical Events
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {geopoliticsScenarios.slice(0, 3).map((scenario) => (
+              <ScenarioCard key={scenario.id} scenario={scenario} compact />
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Market Scenarios */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <BarChart3 className="h-5 w-5 text-chart-1" />
+              Market Predictions
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {marketScenarios.slice(0, 3).map((scenario) => (
+              <ScenarioCard key={scenario.id} scenario={scenario} compact />
+            ))}
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* All Scenarios Grid */}
+      <div>
+        <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <Target className="h-5 w-5" />
+          All Active Scenarios
+        </h2>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {MARKET_SCENARIOS.filter(s => s.status === "active").map((scenario) => (
+            <ScenarioCard key={scenario.id} scenario={scenario} />
+          ))}
+        </div>
       </div>
 
       {/* ==================== STOCKS SECTION ==================== */}
@@ -352,7 +521,6 @@ export default function DashboardPage() {
                   <div className="flex items-center gap-2 text-xs">
                     <Warehouse className="h-3.5 w-3.5 text-chart-1" />
                     <span className="text-chart-1 font-medium">Inventory up 65% - Buyer&apos;s market forming</span>
-                    <History className="h-3 w-3 text-chart-1 ml-auto" />
                   </div>
                 </div>
               </HistoricalAnalysisModal>
@@ -492,189 +660,61 @@ export default function DashboardPage() {
                   <Badge variant="destructive">Active</Badge>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  25% tariffs on Canadian goods under discussion. Auto, energy, and lumber sectors at risk.
+                  25% tariff threats on Canadian goods could impact $450B in annual trade
                 </p>
-                <div className="flex items-center gap-1 mt-2 text-xs text-destructive">
-                  <History className="h-3 w-3" />
-                  <span>View historical trade war impacts</span>
-                </div>
               </div>
             </HistoricalAnalysisModal>
             
             <HistoricalAnalysisModal
               category="trade"
-              title="Energy Export Analysis"
-              subtitle="Pipeline capacity and oil export dynamics"
-            >
-              <div className="p-3 rounded-lg bg-chart-4/10 border border-chart-4/20 cursor-pointer hover:bg-chart-4/15 transition-colors">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-medium">Energy Exports</span>
-                  <Badge variant="outline">Constrained</Badge>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  WCS trades at $15-20 discount to WTI due to pipeline capacity limits.
-                </p>
-                <div className="flex items-center gap-1 mt-2 text-xs text-chart-4">
-                  <History className="h-3 w-3" />
-                  <span>View historical price spreads</span>
-                </div>
-              </div>
-            </HistoricalAnalysisModal>
-            
-            <HistoricalAnalysisModal
-              category="trade"
-              title="USMCA Analysis"
-              subtitle="Trade agreement impacts on Canadian sectors"
+              title="Energy Trade Analysis"
+              subtitle="Canada-US energy export dynamics"
             >
               <div className="p-3 rounded-lg bg-secondary/50 cursor-pointer hover:bg-secondary/70 transition-colors">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-medium">USMCA Framework</span>
-                  <Badge variant="secondary">In Effect</Badge>
+                  <span className="font-medium">Energy Exports</span>
+                  <Badge variant="outline">Monitoring</Badge>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Rules of origin changes affect auto and dairy sectors. Review scheduled for 2026.
+                  Canada supplies 60% of US crude oil imports - $120B annually
                 </p>
-                <div className="flex items-center gap-1 mt-2 text-xs text-muted-foreground">
-                  <History className="h-3 w-3" />
-                  <span>View NAFTA to USMCA transition</span>
+              </div>
+            </HistoricalAnalysisModal>
+            
+            <HistoricalAnalysisModal
+              category="trade"
+              title="Auto Sector Impact"
+              subtitle="Cross-border automotive supply chains"
+            >
+              <div className="p-3 rounded-lg bg-secondary/50 cursor-pointer hover:bg-secondary/70 transition-colors">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-medium">Auto Industry</span>
+                  <Badge variant="outline">At Risk</Badge>
                 </div>
+                <p className="text-sm text-muted-foreground">
+                  Parts cross the border 6+ times during production - $100B+ sector
+                </p>
               </div>
             </HistoricalAnalysisModal>
           </div>
         </SectionCard>
       </div>
 
-      {/* ==================== GEOPOLITICAL & ECONOMY SECTION ==================== */}
-      <SectionDivider 
-        title="Geopolitics & Economy" 
-        icon={Globe2}
-        description="Global risks and economic indicators"
-      />
-      
-      <div className="grid gap-6 lg:grid-cols-2">
-        {/* Geopolitical Risks */}
-        <SectionCard
-          title="Geopolitical Risk Monitor"
-          description="Global events affecting markets"
-          icon={Globe2}
-          iconColor="text-chart-5"
-          category="economy"
-          href="/dashboard/geopolitics"
-        >
-          <div className="space-y-3">
-            {geoData?.currentRisks?.map((risk) => (
-              <HistoricalAnalysisModal
-                key={risk.region}
-                category="economy"
-                title={`${risk.region} Risk Analysis`}
-                subtitle="Historical geopolitical event impacts"
-              >
-                <div
-                  className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50 cursor-pointer hover:bg-secondary/70 transition-colors"
-                >
-                  <Badge
-                    variant={
-                      risk.riskLevel === "high"
-                        ? "destructive"
-                        : risk.riskLevel === "medium"
-                        ? "default"
-                        : "secondary"
-                    }
-                    className="mt-0.5"
-                  >
-                    {risk.riskLevel}
-                  </Badge>
-                  <div className="flex-1">
-                    <p className="font-medium">{risk.region}</p>
-                    <p className="text-xs text-muted-foreground">{risk.description}</p>
-                  </div>
-                  <History className="h-4 w-4 text-muted-foreground" />
-                </div>
-              </HistoricalAnalysisModal>
-            ))}
+      {/* Disclaimer */}
+      <div className="p-4 rounded-lg bg-secondary/30 border border-border/50">
+        <div className="flex items-start gap-3">
+          <AlertTriangle className="h-5 w-5 text-muted-foreground shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-medium">Educational Purpose Only</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              This platform provides probabilistic analysis and historical context for educational purposes. 
+              Scenario probabilities are illustrative and do not represent actual prediction market data. 
+              This is not financial advice. Always conduct your own research and consult qualified professionals 
+              before making investment decisions.
+            </p>
           </div>
-        </SectionCard>
-
-        {/* Canadian Economy Quick View */}
-        <SectionCard
-          title="Canadian Economic Indicators"
-          description="Key macro data points"
-          icon={Landmark}
-          iconColor="text-primary"
-          category="economy"
-          href="/dashboard/economy"
-        >
-          <div className="grid grid-cols-2 gap-3">
-            <HistoricalAnalysisModal
-              category="economy"
-              title="Inflation Analysis"
-              subtitle="CPI trends and purchasing power"
-            >
-              <div className="p-3 rounded-lg bg-secondary/50 cursor-pointer hover:bg-secondary/70 transition-colors">
-                <p className="text-sm text-muted-foreground">Inflation (CPI)</p>
-                <p className="text-xl font-bold">{economyData?.inflationRate?.value || "---"}%</p>
-                <p className="text-xs text-muted-foreground">Year-over-year</p>
-              </div>
-            </HistoricalAnalysisModal>
-            
-            <HistoricalAnalysisModal
-              category="economy"
-              title="Interest Rate Analysis"
-              subtitle="BoC policy and lending rates"
-            >
-              <div className="p-3 rounded-lg bg-secondary/50 cursor-pointer hover:bg-secondary/70 transition-colors">
-                <p className="text-sm text-muted-foreground">Prime Rate</p>
-                <p className="text-xl font-bold">{economyData?.primeRate?.value || "---"}%</p>
-                <p className="text-xs text-muted-foreground">Bank prime</p>
-              </div>
-            </HistoricalAnalysisModal>
-            
-            <HistoricalAnalysisModal
-              category="economy"
-              title="GDP Growth Analysis"
-              subtitle="Economic output and growth trends"
-            >
-              <div className="p-3 rounded-lg bg-secondary/50 cursor-pointer hover:bg-secondary/70 transition-colors">
-                <p className="text-sm text-muted-foreground">GDP Growth</p>
-                <p className="text-xl font-bold">{economyData?.gdpGrowth?.value || "---"}%</p>
-                <p className="text-xs text-muted-foreground">Quarterly</p>
-              </div>
-            </HistoricalAnalysisModal>
-            
-            <HistoricalAnalysisModal
-              category="economy"
-              title="Employment Analysis"
-              subtitle="Labor market dynamics"
-            >
-              <div className="p-3 rounded-lg bg-secondary/50 cursor-pointer hover:bg-secondary/70 transition-colors">
-                <p className="text-sm text-muted-foreground">Unemployment</p>
-                <p className="text-xl font-bold">{economyData?.unemploymentRate?.value || "---"}%</p>
-                <p className="text-xs text-muted-foreground">National rate</p>
-              </div>
-            </HistoricalAnalysisModal>
-          </div>
-        </SectionCard>
+        </div>
       </div>
-
-      {/* Educational Disclaimer */}
-      <Card className="bg-secondary/30 border-border/50">
-        <CardContent className="pt-6">
-          <div className="flex items-start gap-4">
-            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-chart-4/10">
-              <Scale className="h-5 w-5 text-chart-4" />
-            </div>
-            <div>
-              <p className="font-medium">Educational Platform</p>
-              <p className="text-sm text-muted-foreground mt-1">
-                This dashboard provides historical analysis, correlations, and market context for 
-                educational purposes only. Data presented here is not financial advice. Past performance 
-                does not guarantee future results. Always consult qualified financial professionals 
-                before making investment decisions.
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   )
 }
