@@ -452,7 +452,7 @@ export default function HomePage() {
             {/* USA - Coming Soon */}
             <div className="relative p-6 rounded-xl bg-card border border-border opacity-60 hover:opacity-80 transition-opacity">
               <div className="absolute top-2 right-2 text-[10px] text-muted-foreground">SOON</div>
-              <div className="text-4xl mb-3 grayscale">🇺🇸</div>
+              <div className="text-4xl mb-3">🇺🇸</div>
               <h3 className="font-bold text-foreground mb-1">United States</h3>
               <p className="text-xs text-muted-foreground">Q2 2026</p>
               <div className="mt-3 flex flex-wrap gap-1">
@@ -464,7 +464,7 @@ export default function HomePage() {
             {/* Europe - Coming Soon */}
             <div className="relative p-6 rounded-xl bg-card border border-border opacity-60 hover:opacity-80 transition-opacity">
               <div className="absolute top-2 right-2 text-[10px] text-muted-foreground">SOON</div>
-              <div className="text-4xl mb-3 grayscale">🇪🇺</div>
+              <div className="text-4xl mb-3">🇪🇺</div>
               <h3 className="font-bold text-foreground mb-1">Europe</h3>
               <p className="text-xs text-muted-foreground">Q3 2026</p>
               <div className="mt-3 flex flex-wrap gap-1">
@@ -476,7 +476,7 @@ export default function HomePage() {
             {/* India - Coming Soon */}
             <div className="relative p-6 rounded-xl bg-card border border-border opacity-60 hover:opacity-80 transition-opacity">
               <div className="absolute top-2 right-2 text-[10px] text-muted-foreground">SOON</div>
-              <div className="text-4xl mb-3 grayscale">🇮🇳</div>
+              <div className="text-4xl mb-3">🇮🇳</div>
               <h3 className="font-bold text-foreground mb-1">India</h3>
               <p className="text-xs text-muted-foreground">Q4 2026</p>
               <div className="mt-3 flex flex-wrap gap-1">
