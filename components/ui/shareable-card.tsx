@@ -45,7 +45,7 @@ export function ShareableCard({
   const isPositive = change !== undefined && change > 0
   const isNegative = change !== undefined && change < 0
   
-  const shareText = `${title}: ${value}${change !== undefined ? ` (${isPositive ? "+" : ""}${change.toFixed(2)}%)` : ""} - via Nitin's space`
+  const shareText = `${title}: ${value}${change !== undefined ? ` (${isPositive ? "+" : ""}${change.toFixed(2)}%)` : ""} - via Forewire`
   
   const handleCopyLink = async () => {
     const url = typeof window !== "undefined" ? window.location.href : ""
@@ -90,7 +90,7 @@ export function ShareableCard({
       >
         {/* Watermark */}
         <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2 py-1 rounded-md bg-background/80 backdrop-blur text-xs">
-          <span className="font-medium text-muted-foreground">Nitin&apos;s space</span>
+          <span className="font-medium text-muted-foreground"><span className="text-foreground">Fore</span><span className="text-primary">wire</span></span>
         </div>
         
         {/* Content */}
@@ -190,7 +190,7 @@ export function ShareButton({
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Nitin's space - Hub is growing",
+          title: "Forewire - Wired Into Forward Signals",
           text: text,
           url: url
         })

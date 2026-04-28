@@ -3,7 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Nitin's Space - Dynamic Finance Theme */
+/* Forewire - Wired Into Forward Signals Theme */
 
 :root {
   /* Deep navy/charcoal background */
@@ -438,4 +438,108 @@
     radial-gradient(1px 1px at 90% 10%, oklch(1 0 0 / 0.1), transparent);
   pointer-events: none;
   z-index: 0;
+}
+
+/* ======== FOREWIRE BRAND EFFECTS ======== */
+
+/* Wire pulse animation - signals flowing through */
+@keyframes wire-pulse {
+  0% { 
+    background-position: 0% 50%;
+    opacity: 0.3;
+  }
+  50% { 
+    background-position: 100% 50%;
+    opacity: 0.6;
+  }
+  100% { 
+    background-position: 200% 50%;
+    opacity: 0.3;
+  }
+}
+
+.wire-glow {
+  position: relative;
+}
+
+.wire-glow::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, 
+    transparent, 
+    oklch(0.75 0.18 195 / 0.5), 
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: wire-pulse 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Signal dot animation */
+@keyframes signal-dot {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 0 0 0 oklch(0.75 0.18 195 / 0.4);
+  }
+  50% { 
+    transform: scale(1.2);
+    box-shadow: 0 0 0 8px oklch(0.75 0.18 195 / 0);
+  }
+}
+
+.signal-dot {
+  animation: signal-dot 2s ease-in-out infinite;
+}
+
+/* Circuit board pattern */
+.circuit-pattern {
+  background-image: 
+    linear-gradient(90deg, oklch(0.75 0.18 195 / 0.03) 1px, transparent 1px),
+    linear-gradient(oklch(0.75 0.18 195 / 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 25% 25%, oklch(0.75 0.18 195 / 0.05) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, oklch(0.75 0.18 195 / 0.05) 2px, transparent 2px);
+  background-size: 60px 60px, 60px 60px, 60px 60px, 60px 60px;
+}
+
+/* Electric glow for primary elements */
+.electric-glow {
+  box-shadow: 
+    0 0 10px oklch(0.75 0.18 195 / 0.3),
+    0 0 20px oklch(0.75 0.18 195 / 0.2),
+    0 0 40px oklch(0.75 0.18 195 / 0.1);
+}
+
+/* Probability bar fill animation */
+@keyframes probability-fill {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(var(--probability, 0.5)); }
+}
+
+.probability-bar {
+  transform-origin: left;
+  animation: probability-fill 1s ease-out forwards;
+}
+
+/* Forewire accent border */
+.forewire-border {
+  border: 1px solid oklch(0.75 0.18 195 / 0.2);
+  background: linear-gradient(135deg, 
+    oklch(0.14 0.02 260) 0%, 
+    oklch(0.12 0.03 195 / 0.3) 100%
+  );
+}
+
+/* Data stream effect */
+@keyframes data-stream {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+.data-stream-line {
+  animation: data-stream 2s linear infinite;
 }

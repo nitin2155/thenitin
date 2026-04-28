@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Nitin's space | Hub is growing",
-  description: 'Live Canadian financial intelligence - stocks, commodities, housing market analysis, and geopolitical impact tracking. All in CAD. Free educational platform.',
+  title: "Forewire | Wired Into Forward Signals",
+  description: 'Probabilistic forecasting for world events. What if scenarios, market impact projections, historical precedents, and real-time sentiment signals. Educational platform.',
   generator: 'v0.app',
   icons: {
     icon: [

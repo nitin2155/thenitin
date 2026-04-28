@@ -35,7 +35,7 @@ export default function DashboardLayout({
               Live Data
             </span>
             <span>|</span>
-            <span>Nitin&apos;s space</span>
+            <span className="font-medium"><span className="text-foreground">Fore</span><span className="text-primary">wire</span></span>
           </div>
         </div>
       </footer>

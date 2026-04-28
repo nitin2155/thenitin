@@ -239,17 +239,16 @@ export default function HomePage() {
           
           {/* Brand */}
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-3">
-            <span className="text-foreground">Nitin&apos;s</span>
-            <span className="text-primary ml-3">space</span>
+            <span className="text-foreground">Fore</span><span className="text-primary">wire</span>
           </h1>
           
           <p className="text-lg text-muted-foreground flex items-center justify-center gap-2 mb-4">
-            Hub is growing
-            <span className="inline-block w-2.5 h-2.5 rounded-full bg-chart-1 animate-live-pulse" />
+            Wired into forward signals
+            <span className="inline-block w-2.5 h-2.5 rounded-full bg-primary animate-live-pulse" />
           </p>
           
           <p className="text-sm text-muted-foreground max-w-lg mx-auto mb-6">
-            Real-time Canadian financial intelligence. Stocks, housing, commodities, and geopolitical impact - all in CAD.
+            Probabilistic forecasting for world events. What-if scenarios, market projections, and historical precedents.
           </p>
 
           {/* Quick Stats */}
@@ -538,7 +537,7 @@ export default function HomePage() {
           
           <div className="mt-8 pt-8 border-t border-gray-800 text-center">
             <p className="text-sm text-gray-500">
-              Built with care by <span className="text-white">Nitin</span> for the community
+              Built for those who think ahead
             </p>
           </div>
         </div>
@@ -550,10 +549,9 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
             <div className="flex items-center gap-2">
               <span className="font-bold text-sm">
-                <span className="text-white">Nitin&apos;s</span>
-                <span className="text-primary ml-1">space</span>
+                <span className="text-white">Fore</span><span className="text-primary">wire</span>
               </span>
-              <span>| Hub is growing</span>
+              <span>| Wired into forward signals</span>
             </div>
             <div className="flex items-center gap-3">
               <span>Educational only</span>
