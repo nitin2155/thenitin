@@ -217,16 +217,16 @@ export function ForewireWatermark({ className }: { className?: string }) {
         className
       )}
     >
-      {/* Center watermark */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-100">
+      {/* Center watermark - more visible on light backgrounds */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-60">
         <ForewireLogo variant="watermark" size="watermark" animated />
       </div>
       
       {/* Additional subtle pattern elements */}
-      <div className="absolute top-[10%] right-[5%] opacity-30">
+      <div className="absolute top-[10%] right-[5%] opacity-10">
         <ForewireLogo variant="icon" size="xl" />
       </div>
-      <div className="absolute bottom-[15%] left-[8%] opacity-20">
+      <div className="absolute bottom-[15%] left-[8%] opacity-8">
         <ForewireLogo variant="icon" size="lg" />
       </div>
     </div>
