@@ -14,9 +14,9 @@ import {
   LayoutDashboard,
   Gem,
   Ship,
-  Sparkles,
-  Zap
+  Sparkles
 } from "lucide-react"
+import { ForewireLogo } from "@/components/forewire-logo"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 
@@ -40,8 +40,8 @@ export function MainNav() {
       <div className="container flex h-16 items-center px-4">
         <Link href="/" className="flex items-center gap-2.5 mr-8 group">
           {/* Logo Icon */}
-          <div className="relative flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 group-hover:border-primary/50 transition-colors">
-            <Zap className="w-5 h-5 text-primary" />
+          <div className="relative flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 group-hover:border-primary/50 transition-colors overflow-hidden">
+            <ForewireLogo variant="icon" size="sm" />
             <div className="absolute inset-0 rounded-lg bg-primary/10 blur-sm opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
           <div className="hidden sm:flex flex-col">

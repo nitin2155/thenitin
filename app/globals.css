@@ -6,8 +6,8 @@
 /* Forewire - Wired Into Forward Signals Theme */
 
 :root {
-  /* Deep navy/charcoal background */
-  --background: oklch(0.10 0.02 260);
+  /* Pure black background */
+  --background: oklch(0.05 0.01 260);
   --foreground: oklch(0.96 0.01 240);
   
   /* Slightly lighter cards for depth */
@@ -60,7 +60,7 @@
 }
 
 .dark {
-  --background: oklch(0.10 0.02 260);
+  --background: oklch(0.05 0.01 260);
   --foreground: oklch(0.96 0.01 240);
   --card: oklch(0.14 0.02 260);
   --card-foreground: oklch(0.96 0.01 240);
@@ -542,4 +542,33 @@
 
 .data-stream-line {
   animation: data-stream 2s linear infinite;
+}
+
+/* Slow spin for watermark elements */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 60s linear infinite;
+}
+
+.animate-spin-reverse {
+  animation: spin-reverse 45s linear infinite;
+}
+
+/* Watermark pulse */
+@keyframes watermark-pulse {
+  0%, 100% { opacity: 0.03; }
+  50% { opacity: 0.06; }
+}
+
+.animate-watermark-pulse {
+  animation: watermark-pulse 8s ease-in-out infinite;
 }
