@@ -314,3 +314,128 @@
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
+
+/* ======== DYNAMIC DAY/NIGHT BACKGROUNDS ======== */
+
+/* Morning (5am - 9am): Warm amber sunrise tones */
+.dynamic-bg-morning {
+  background: linear-gradient(
+    135deg,
+    oklch(0.12 0.03 30) 0%,
+    oklch(0.10 0.02 260) 50%,
+    oklch(0.08 0.02 260) 100%
+  );
+}
+
+.dynamic-bg-morning::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 40%;
+  background: radial-gradient(
+    ellipse at top right,
+    oklch(0.85 0.15 60 / 0.08) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Day (9am - 5pm): Clear cyan/teal trading hours */
+.dynamic-bg-day {
+  background: linear-gradient(
+    135deg,
+    oklch(0.11 0.025 200) 0%,
+    oklch(0.10 0.02 260) 50%,
+    oklch(0.09 0.02 260) 100%
+  );
+}
+
+.dynamic-bg-day::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 10%;
+  width: 60%;
+  height: 50%;
+  background: radial-gradient(
+    ellipse at top center,
+    oklch(0.75 0.18 195 / 0.06) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Evening (5pm - 9pm): Warm sunset, after-hours */
+.dynamic-bg-evening {
+  background: linear-gradient(
+    135deg,
+    oklch(0.12 0.04 20) 0%,
+    oklch(0.10 0.03 280) 50%,
+    oklch(0.08 0.02 260) 100%
+  );
+}
+
+.dynamic-bg-evening::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 45%;
+  background: radial-gradient(
+    ellipse at top right,
+    oklch(0.70 0.18 25 / 0.10) 0%,
+    oklch(0.65 0.15 320 / 0.05) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Night (9pm - 5am): Deep indigo, markets closed */
+.dynamic-bg-night {
+  background: linear-gradient(
+    135deg,
+    oklch(0.08 0.03 280) 0%,
+    oklch(0.06 0.02 260) 50%,
+    oklch(0.05 0.02 260) 100%
+  );
+}
+
+.dynamic-bg-night::before {
+  content: '';
+  position: fixed;
+  top: 10%;
+  left: 20%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(
+    ellipse at center,
+    oklch(0.50 0.15 280 / 0.06) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Stars effect for night mode */
+.dynamic-bg-night::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    radial-gradient(1px 1px at 20% 10%, oklch(1 0 0 / 0.15), transparent),
+    radial-gradient(1px 1px at 40% 30%, oklch(1 0 0 / 0.1), transparent),
+    radial-gradient(1px 1px at 60% 20%, oklch(1 0 0 / 0.12), transparent),
+    radial-gradient(1px 1px at 80% 40%, oklch(1 0 0 / 0.08), transparent),
+    radial-gradient(1px 1px at 30% 60%, oklch(1 0 0 / 0.1), transparent),
+    radial-gradient(1px 1px at 70% 80%, oklch(1 0 0 / 0.12), transparent),
+    radial-gradient(1px 1px at 10% 80%, oklch(1 0 0 / 0.08), transparent),
+    radial-gradient(1px 1px at 90% 10%, oklch(1 0 0 / 0.1), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
