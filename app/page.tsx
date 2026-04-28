@@ -492,14 +492,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Suggestions Section - Bright Blue Background */}
-      <section className="relative z-10 bg-gradient-to-br from-blue-600 via-blue-500 to-cyan-500 py-16 px-4">
+      {/* Suggestions Section - Dark Blue Background */}
+      <section className="relative z-10 bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-900 py-16 px-4">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
               What Should We Build Next?
             </h2>
-            <p className="text-blue-100">
+            <p className="text-blue-300">
               Your feedback shapes this hub. Tell us what analysis would help you most.
             </p>
           </div>
@@ -508,35 +508,35 @@ export default function HomePage() {
             <div className="grid sm:grid-cols-2 gap-4">
               <Input 
                 placeholder="Your name (optional)" 
-                className="bg-white/10 border-white/20 text-white placeholder:text-blue-200 focus:border-white focus:bg-white/20"
+                className="bg-white/5 border-blue-700/50 text-white placeholder:text-blue-400 focus:border-blue-400 focus:bg-white/10"
               />
               <Input 
                 placeholder="Email (optional)" 
                 type="email"
-                className="bg-white/10 border-white/20 text-white placeholder:text-blue-200 focus:border-white focus:bg-white/20"
+                className="bg-white/5 border-blue-700/50 text-white placeholder:text-blue-400 focus:border-blue-400 focus:bg-white/10"
               />
             </div>
             <Textarea 
               placeholder="What would you like to see? More sectors? Different countries? Specific analysis tools? Let us know..."
               rows={4}
-              className="bg-white/10 border-white/20 text-white placeholder:text-blue-200 focus:border-white focus:bg-white/20 resize-none"
+              className="bg-white/5 border-blue-700/50 text-white placeholder:text-blue-400 focus:border-blue-400 focus:bg-white/10 resize-none"
             />
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs cursor-pointer hover:bg-white/30 transition-colors">US Markets</span>
-                <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs cursor-pointer hover:bg-white/30 transition-colors">UK Analysis</span>
-                <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs cursor-pointer hover:bg-white/30 transition-colors">India Markets</span>
-                <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs cursor-pointer hover:bg-white/30 transition-colors">Currency Tools</span>
+                <span className="px-3 py-1 rounded-full bg-blue-800/50 text-blue-200 text-xs cursor-pointer hover:bg-blue-700/50 transition-colors">US Markets</span>
+                <span className="px-3 py-1 rounded-full bg-blue-800/50 text-blue-200 text-xs cursor-pointer hover:bg-blue-700/50 transition-colors">UK Analysis</span>
+                <span className="px-3 py-1 rounded-full bg-blue-800/50 text-blue-200 text-xs cursor-pointer hover:bg-blue-700/50 transition-colors">India Markets</span>
+                <span className="px-3 py-1 rounded-full bg-blue-800/50 text-blue-200 text-xs cursor-pointer hover:bg-blue-700/50 transition-colors">Currency Tools</span>
               </div>
-              <Button className="gap-2 bg-white text-blue-600 hover:bg-blue-50 font-semibold">
+              <Button className="gap-2 bg-blue-500 text-white hover:bg-blue-400 font-semibold">
                 <Send className="h-4 w-4" />
                 Submit Suggestion
               </Button>
             </div>
           </form>
           
-          <div className="mt-8 pt-8 border-t border-white/20 text-center">
-            <p className="text-sm text-blue-100">
+          <div className="mt-8 pt-8 border-t border-blue-800/50 text-center">
+            <p className="text-sm text-blue-400">
               Built for those who think ahead
             </p>
           </div>
