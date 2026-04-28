@@ -323,7 +323,7 @@ export default function PersonalImpactCalculatorPage() {
               <div className="space-y-3">
                 <Label className="flex items-center gap-2">
                   <Building2 className="h-4 w-4" />
-                  Trump Tariff Scenario
+                  US Tariff Scenario
                 </Label>
                 <div className="grid grid-cols-3 gap-2">
                   <Button 

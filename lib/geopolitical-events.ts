@@ -98,16 +98,16 @@ export const GEOPOLITICAL_EVENTS: GeopoliticalEvent[] = [
     }
   },
   
-  // Trump Trade War
+  // US-China Trade War (2018-2020)
   {
-    id: "trump-china-trade-war",
+    id: "us-china-trade-war",
     name: "US-China Trade War",
     shortName: "Trade War",
     date: "2018-03-22",
     endDate: "2020-01-15",
     category: "trade",
     severity: "high",
-    description: "President Trump imposed tariffs on $360 billion of Chinese goods, triggering retaliatory measures and disrupting global supply chains.",
+    description: "The US imposed tariffs on $360 billion of Chinese goods, triggering retaliatory measures and disrupting global supply chains.",
     educationalContext: "Trade wars demonstrate how protectionist policies create uncertainty and can harm the very industries they aim to protect. They also show gold's role as a hedge against economic policy uncertainty.",
     impacts: [
       {
@@ -353,16 +353,16 @@ export const GEOPOLITICAL_EVENTS: GeopoliticalEvent[] = [
     }
   },
   
-  // Trump 2024/2025 Return
+  // 2024 US Election & Policy Shift
   {
-    id: "trump-2024-election",
-    name: "Trump 2024 Election & Policy Expectations",
-    shortName: "Trump 2.0",
+    id: "us-2024-election",
+    name: "2024 US Election & Policy Expectations",
+    shortName: "2024 Shift",
     date: "2024-11-05",
     category: "political",
     severity: "high",
-    description: "Trump's 2024 election victory triggered market repricing around expected tariffs, tax cuts, deregulation, and energy policy changes.",
-    educationalContext: "Markets price in expected policies before they happen. Trump 2.0 expectations included higher tariffs (inflationary), tax cuts (stimulative), and energy deregulation (bearish for oil prices long-term through supply).",
+    description: "The 2024 US election outcome triggered market repricing around expected tariffs, tax cuts, deregulation, and energy policy changes.",
+    educationalContext: "Markets price in expected policies before they happen. Policy shift expectations included higher tariffs (inflationary), tax cuts (stimulative), and energy deregulation (bearish for oil prices long-term through supply).",
     impacts: [
       {
         commodity: "GOLD",

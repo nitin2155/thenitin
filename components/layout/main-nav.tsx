@@ -16,6 +16,7 @@ import {
   Ship,
   Sparkles
 } from "lucide-react"
+import { ForewireLogo } from "@/components/forewire-logo"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 
@@ -37,15 +38,20 @@ export function MainNav() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center px-4">
-        <Link href="/" className="flex items-center gap-3 mr-8 group">
+        <Link href="/" className="flex items-center gap-2.5 mr-8 group">
+          {/* Logo Icon */}
+          <div className="relative flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 group-hover:border-primary/50 transition-colors overflow-hidden">
+            <ForewireLogo variant="icon" size="sm" />
+            <div className="absolute inset-0 rounded-lg bg-primary/10 blur-sm opacity-0 group-hover:opacity-100 transition-opacity" />
+          </div>
           <div className="hidden sm:flex flex-col">
-            <span className="font-bold text-xl tracking-tight leading-none">
-              <span className="text-foreground">Nitin&apos;s</span>
-              <span className="text-primary ml-1">space</span>
+            <span className="font-bold text-xl tracking-tight leading-none flex items-center gap-0.5">
+              <span className="text-foreground">Fore</span>
+              <span className="text-primary">wire</span>
             </span>
             <span className="text-[10px] text-muted-foreground tracking-wide flex items-center gap-1">
-              Hub is growing
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-chart-1 animate-live-pulse" />
+              Wired into forward signals
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-live-pulse" />
             </span>
           </div>
         </Link>

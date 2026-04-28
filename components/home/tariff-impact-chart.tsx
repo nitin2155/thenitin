@@ -62,7 +62,7 @@ export function TariffImpactChart() {
               </div>
               <div>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  Trump Tariff Impact
+                  Tariff Impact
                   <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                 </CardTitle>
                 <p className="text-xs text-muted-foreground">Trade War Analysis + New Partners</p>

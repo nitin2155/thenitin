@@ -26,7 +26,7 @@ const geopoliticalData = [
   { month: "Aug 24", cad: 97, impact: "neutral", event: null },
   { month: "Sep 24", cad: 94, impact: "negative", event: "Middle East conflict" },
   { month: "Oct 24", cad: 93, impact: "negative", event: null },
-  { month: "Nov 24", cad: 91, impact: "negative", event: "Trump tariff fears" },
+  { month: "Nov 24", cad: 91, impact: "negative", event: "US tariff fears" },
   { month: "Dec 24", cad: 89, impact: "negative", event: null },
   { month: "Jan 25", cad: 87, impact: "negative", event: "Tariffs enacted" },
   { month: "Feb 25", cad: 86, impact: "negative", event: null },
@@ -37,7 +37,7 @@ const majorEvents = [
   { label: "Russia-Ukraine", date: "Feb 24", change: "-2%" },
   { label: "US-China Tensions", date: "Jun 24", change: "-3%" },
   { label: "Middle East", date: "Sep 24", change: "-4%" },
-  { label: "Trump Tariffs", date: "Nov 24", change: "-5%" },
+  { label: "US Tariffs", date: "Nov 24", change: "-5%" },
 ]
 
 export function GeopoliticalChart() {

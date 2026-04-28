@@ -45,8 +45,7 @@ export default function LoginPage() {
         <CardHeader className="text-center">
           <Link href="/" className="flex items-center justify-center gap-2 mb-4">
             <span className="font-bold text-xl">
-              <span className="text-foreground">Nitin&apos;s</span>
-              <span className="text-primary ml-1">space</span>
+              <span className="text-foreground">Fore</span><span className="text-primary">wire</span>
             </span>
           </Link>
           <CardTitle>Welcome back</CardTitle>
