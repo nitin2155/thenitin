@@ -73,7 +73,7 @@ export const MARKET_SCENARIOS: MarketScenario[] = [
     lastUpdated: new Date().toISOString(),
     description: "Assessing the likelihood of broad 25% tariffs on Canadian exports to the US, including auto, energy, and agricultural products.",
     keyFactors: [
-      "Trump administration trade policy signals",
+      "US administration trade policy signals",
       "USMCA renegotiation timeline",
       "Canada's retaliatory stance",
       "Auto sector lobbying intensity",

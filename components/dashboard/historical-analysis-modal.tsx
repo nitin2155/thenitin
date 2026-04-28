@@ -96,8 +96,8 @@ const CORRELATIONS = {
 // Historical events by category
 const CATEGORY_EVENTS: Record<string, string[]> = {
   housing: ["2008-financial-crisis", "covid-19-pandemic", "2022-inflation-crisis", "russia-ukraine-war"],
-  stocks: ["2008-financial-crisis", "trump-china-trade-war", "covid-19-pandemic", "2022-inflation-crisis", "trump-2024-election"],
-  trade: ["trump-china-trade-war", "trump-2024-election", "russia-ukraine-war"],
+  stocks: ["2008-financial-crisis", "us-china-trade-war", "covid-19-pandemic", "2022-inflation-crisis", "us-2024-election"],
+  trade: ["us-china-trade-war", "us-2024-election", "russia-ukraine-war"],
   commodities: ["russia-ukraine-war", "oil-price-war-2020", "covid-19-pandemic", "2008-financial-crisis"],
   economy: ["2008-financial-crisis", "covid-19-pandemic", "2022-inflation-crisis", "russia-ukraine-war"],
 }

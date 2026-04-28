@@ -75,8 +75,8 @@ const QUIZ_QUESTIONS = [
     lesson: "Interest rates and housing prices have a strong inverse relationship."
   },
   {
-    id: "trump-tariff-cad",
-    event: "Trump Steel & Aluminum Tariffs",
+    id: "us-tariff-cad",
+    event: "US Steel & Aluminum Tariffs",
     date: "March 2018",
     description: "The US announced 25% tariffs on steel and 10% on aluminum imports from Canada.",
     question: "What happened to the Canadian dollar (CAD) in the following month?",

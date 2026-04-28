@@ -144,10 +144,10 @@ const provincialImpact = [
 
 // Historical tariff timeline
 const tariffHistory = [
-  { year: "2018", event: "Trump imposes 25% steel, 10% aluminum tariffs", impact: "Canada retaliates with C$16B in tariffs" },
+  { year: "2018", event: "US imposes 25% steel, 10% aluminum tariffs", impact: "Canada retaliates with C$16B in tariffs" },
   { year: "2019", event: "Steel/aluminum tariffs lifted after USMCA", impact: "Trade normalizes temporarily" },
   { year: "2020", event: "Aluminum tariffs briefly reimposed", impact: "Removed after Canadian threats" },
-  { year: "2024", event: "Trump elected, threatens 25% on all imports", impact: "CAD drops, markets volatile" },
+  { year: "2024", event: "US threatens 25% tariffs on all imports", impact: "CAD drops, markets volatile" },
   { year: "2025", event: "Tariff implementation delayed", impact: "Negotiations ongoing, uncertainty persists" }
 ]
 
@@ -181,7 +181,7 @@ export default function TariffsPage() {
             <div className="p-2 rounded-lg bg-destructive/10 border border-destructive/20">
               <Globe2 className="h-5 w-5 text-destructive" />
             </div>
-            Trump Tariff Impact Analysis
+            Tariff Impact Analysis
           </h1>
           <p className="text-muted-foreground mt-1">
             Understanding the potential impact on Canadian trade, jobs, and economy
