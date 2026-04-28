@@ -11,54 +11,54 @@ export function DynamicBackground({ children }: { children: React.ReactNode }) {
     <div
       className={cn(
         "min-h-screen transition-all duration-1000 relative overflow-hidden",
-        // Pure black base with time-based overlays
-        "bg-black",
-        // Time-based overlays
-        timeOfDay === "morning" && "dynamic-bg-morning",
-        timeOfDay === "day" && "dynamic-bg-day",
-        timeOfDay === "evening" && "dynamic-bg-evening",
-        timeOfDay === "night" && "dynamic-bg-night"
+        // White base with subtle time-based overlays
+        "bg-white",
+        // Time-based overlays (subtle for light mode)
+        timeOfDay === "morning" && "dynamic-bg-morning-light",
+        timeOfDay === "day" && "dynamic-bg-day-light",
+        timeOfDay === "evening" && "dynamic-bg-evening-light",
+        timeOfDay === "night" && "dynamic-bg-night-light"
       )}
     >
       {/* Forewire Watermark Logo */}
       <ForewireWatermark />
 
-      {/* Animated gradient orbs */}
+      {/* Animated gradient orbs - subtle for light mode */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-[1]">
         {/* Primary orb */}
         <div
           className={cn(
-            "absolute w-[600px] h-[600px] rounded-full blur-[120px] opacity-15 transition-all duration-1000",
-            timeOfDay === "morning" && "bg-amber-500 top-[-200px] right-[-100px]",
-            timeOfDay === "day" && "bg-cyan-500 top-[-150px] right-[10%]",
-            timeOfDay === "evening" && "bg-orange-600 top-[-100px] right-[-50px]",
-            timeOfDay === "night" && "bg-indigo-700 top-[-200px] right-[5%]"
+            "absolute w-[600px] h-[600px] rounded-full blur-[150px] opacity-20 transition-all duration-1000",
+            timeOfDay === "morning" && "bg-amber-200 top-[-200px] right-[-100px]",
+            timeOfDay === "day" && "bg-cyan-200 top-[-150px] right-[10%]",
+            timeOfDay === "evening" && "bg-orange-200 top-[-100px] right-[-50px]",
+            timeOfDay === "night" && "bg-indigo-200 top-[-200px] right-[5%]"
           )}
         />
         {/* Secondary orb */}
         <div
           className={cn(
-            "absolute w-[500px] h-[500px] rounded-full blur-[100px] opacity-10 transition-all duration-1000 animate-float-slow",
-            timeOfDay === "morning" && "bg-rose-400 bottom-[10%] left-[-100px]",
-            timeOfDay === "day" && "bg-teal-500 bottom-[20%] left-[5%]",
-            timeOfDay === "evening" && "bg-purple-600 bottom-[15%] left-[-50px]",
-            timeOfDay === "night" && "bg-blue-800 bottom-[10%] left-[10%]"
+            "absolute w-[500px] h-[500px] rounded-full blur-[120px] opacity-15 transition-all duration-1000 animate-float-slow",
+            timeOfDay === "morning" && "bg-rose-200 bottom-[10%] left-[-100px]",
+            timeOfDay === "day" && "bg-teal-200 bottom-[20%] left-[5%]",
+            timeOfDay === "evening" && "bg-purple-200 bottom-[15%] left-[-50px]",
+            timeOfDay === "night" && "bg-blue-200 bottom-[10%] left-[10%]"
           )}
         />
         {/* Accent orb */}
         <div
           className={cn(
-            "absolute w-[300px] h-[300px] rounded-full blur-[80px] opacity-8 transition-all duration-1000 animate-float-delayed",
-            timeOfDay === "morning" && "bg-yellow-400 top-[40%] left-[60%]",
-            timeOfDay === "day" && "bg-emerald-500 top-[30%] left-[70%]",
-            timeOfDay === "evening" && "bg-pink-600 top-[50%] left-[65%]",
-            timeOfDay === "night" && "bg-purple-600 top-[45%] left-[75%]"
+            "absolute w-[300px] h-[300px] rounded-full blur-[100px] opacity-10 transition-all duration-1000 animate-float-delayed",
+            timeOfDay === "morning" && "bg-yellow-200 top-[40%] left-[60%]",
+            timeOfDay === "day" && "bg-emerald-200 top-[30%] left-[70%]",
+            timeOfDay === "evening" && "bg-pink-200 top-[50%] left-[65%]",
+            timeOfDay === "night" && "bg-purple-200 top-[45%] left-[75%]"
           )}
         />
       </div>
 
       {/* Subtle grid pattern overlay */}
-      <div className="fixed inset-0 bg-grid-pattern opacity-20 pointer-events-none z-[1]" />
+      <div className="fixed inset-0 bg-grid-pattern-light opacity-30 pointer-events-none z-[1]" />
 
       {/* Content */}
       <div className="relative z-10">{children}</div>
