@@ -17,11 +17,14 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { StockLineChart } from "@/components/home/stock-line-chart"
 import { HousingRatesChart } from "@/components/home/housing-rates-chart"
 import { TariffImpactChart } from "@/components/home/tariff-impact-chart"
 import { GeopoliticalChart } from "@/components/home/geopolitical-chart"
 import { MarketHeadlines } from "@/components/home/market-headlines"
+import { CanadaStockChart } from "@/components/home/canada-stock-chart"
+import { USAStockChart } from "@/components/home/usa-stock-chart"
+import { USAHousingChart } from "@/components/home/usa-housing-chart"
+import { USAFedChart } from "@/components/home/usa-fed-chart"
 
 // Mini sparkline data generators
 const generateSparkline = (trend: "up" | "down" | "volatile", points: number = 20) => {
@@ -354,7 +357,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Main Charts Section */}
+      {/* Main Charts Section - By Country */}
       <section className="relative z-10 px-4 pb-8">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-6">
@@ -371,20 +374,74 @@ export default function HomePage() {
             </div>
           </div>
           
-          {/* Stock Chart */}
-          <div className="mb-6 card-hover">
-            <StockLineChart />
+          {/* CANADA ROW */}
+          <div className="mb-8">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-2xl">🇨🇦</span>
+              <div>
+                <h3 className="text-lg font-bold text-foreground">Canada</h3>
+                <p className="text-xs text-muted-foreground">TSX, Housing, BoC Policy, Trade Impact</p>
+              </div>
+              <div className="ml-auto flex items-center gap-1.5">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
+                </span>
+                <span className="text-xs text-red-500 font-medium">LIVE</span>
+              </div>
+            </div>
+            <div className="grid gap-4 lg:grid-cols-3">
+              <div className="card-hover">
+                <CanadaStockChart />
+              </div>
+              <div className="card-hover">
+                <HousingRatesChart />
+              </div>
+              <div className="card-hover">
+                <TariffImpactChart />
+              </div>
+            </div>
           </div>
           
-          {/* Three Column - Key Insights */}
-          <div className="grid gap-6 lg:grid-cols-3 mb-6">
-            <div className="card-hover">
-              <HousingRatesChart />
+          {/* USA ROW */}
+          <div className="mb-6">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-2xl">🇺🇸</span>
+              <div>
+                <h3 className="text-lg font-bold text-foreground">United States</h3>
+                <p className="text-xs text-muted-foreground">S&P 500, Housing, Fed Policy</p>
+              </div>
+              <div className="ml-auto flex items-center gap-1.5">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-500 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500" />
+                </span>
+                <span className="text-xs text-blue-500 font-medium">LIVE</span>
+              </div>
             </div>
-            <div className="card-hover">
-              <TariffImpactChart />
+            <div className="grid gap-4 lg:grid-cols-3">
+              <div className="card-hover">
+                <USAStockChart />
+              </div>
+              <div className="card-hover">
+                <USAHousingChart />
+              </div>
+              <div className="card-hover">
+                <USAFedChart />
+              </div>
             </div>
-            <div className="card-hover">
+          </div>
+          
+          {/* Geopolitical - Affects Both */}
+          <div className="mt-6">
+            <div className="flex items-center gap-3 mb-4">
+              <Globe className="h-6 w-6 text-primary" />
+              <div>
+                <h3 className="text-lg font-bold text-foreground">Global Factors</h3>
+                <p className="text-xs text-muted-foreground">Geopolitical events impacting both markets</p>
+              </div>
+            </div>
+            <div className="card-hover max-w-md">
               <GeopoliticalChart />
             </div>
           </div>
