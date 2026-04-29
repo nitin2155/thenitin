@@ -1,73 +1,99 @@
 "use client"
 
 import Link from "next/link"
+import useSWR from "swr"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Skeleton } from "@/components/ui/skeleton"
 import { 
   Home as HomeIcon, 
   ArrowRight,
   TrendingUp,
   TrendingDown,
   AlertTriangle,
-  ExternalLink
+  ExternalLink,
+  RefreshCw
 } from "lucide-react"
 import { 
-  LineChart, 
-  Line, 
   XAxis, 
   YAxis, 
   ResponsiveContainer, 
   Tooltip,
   ReferenceLine,
   Area,
-  ComposedChart
+  ComposedChart,
+  Line
 } from "recharts"
 
-// Historical data: Housing prices vs BoC interest rates (3 years)
-// Affordability = % of median income needed for mortgage payments (lower is better)
-const historicalData = [
-  { month: "Jan 22", housing: 816, rate: 0.25, affordability: 45, label: "Peak" },
-  { month: "Mar 22", housing: 796, rate: 0.50, affordability: 48 },
-  { month: "Jun 22", housing: 745, rate: 1.50, affordability: 52 },
-  { month: "Sep 22", housing: 710, rate: 3.25, affordability: 58 },
-  { month: "Dec 22", housing: 685, rate: 4.25, affordability: 62 },
-  { month: "Mar 23", housing: 680, rate: 4.50, affordability: 65, label: "Bottom" },
-  { month: "Jun 23", housing: 695, rate: 4.75, affordability: 68 },
-  { month: "Sep 23", housing: 700, rate: 5.00, affordability: 72, label: "Peak Rate" },
-  { month: "Dec 23", housing: 705, rate: 5.00, affordability: 71 },
-  { month: "Mar 24", housing: 710, rate: 5.00, affordability: 70 },
-  { month: "Jun 24", housing: 715, rate: 4.75, affordability: 66, label: "Cut" },
-  { month: "Sep 24", housing: 720, rate: 4.25, affordability: 62 },
-  { month: "Dec 24", housing: 718, rate: 3.75, affordability: 58 },
-  { month: "Mar 25", housing: 720, rate: 3.25, affordability: 55, label: "Now" },
-]
-
-// Key insights
-const insights = [
-  {
-    title: "The Correlation",
-    description: "Rates up 4.75% → Housing down 17%",
-    icon: TrendingDown,
-    color: "text-destructive"
-  },
-  {
-    title: "Recovery",
-    description: "Rate cuts stabilizing prices",
-    icon: TrendingUp,
-    color: "text-chart-1"
-  },
-  {
-    title: "Warning",
-    description: "1.2M mortgages renewing 2025",
-    icon: AlertTriangle,
-    color: "text-accent"
-  }
-]
+const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 export function HousingRatesChart() {
-  const currentHousing = historicalData[historicalData.length - 1].housing
-  const peakHousing = Math.max(...historicalData.map(d => d.housing))
+  const { data, error, isLoading } = useSWR('/api/housing?market=CA', fetcher, {
+    refreshInterval: 300000, // Refresh every 5 minutes
+    revalidateOnFocus: true
+  })
+  
+  if (isLoading) {
+    return (
+      <Card className="border-border bg-card/50 backdrop-blur">
+        <CardHeader className="pb-2">
+          <div className="flex items-center gap-3">
+            <Skeleton className="h-10 w-10 rounded-lg" />
+            <div>
+              <Skeleton className="h-5 w-40 mb-1" />
+              <Skeleton className="h-3 w-32" />
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <Skeleton className="h-52 w-full mb-4" />
+          <div className="grid grid-cols-3 gap-2">
+            <Skeleton className="h-16 w-full" />
+            <Skeleton className="h-16 w-full" />
+            <Skeleton className="h-16 w-full" />
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+  
+  if (error || !data?.data) {
+    return (
+      <Card className="border-border bg-card/50 backdrop-blur border-destructive/50">
+        <CardContent className="p-6 text-center">
+          <AlertTriangle className="h-8 w-8 text-destructive mx-auto mb-2" />
+          <p className="text-sm text-muted-foreground">Failed to load housing data</p>
+        </CardContent>
+      </Card>
+    )
+  }
+  
+  const housingData = data.data
+  const historicalData = housingData.historicalData
+  const currentHousing = housingData.currentMedianPrice
+  const peakHousing = Math.max(...historicalData.map((d: { housing: number }) => d.housing))
   const housingChange = ((currentHousing - peakHousing) / peakHousing * 100)
+  
+  const insights = [
+    {
+      title: "The Correlation",
+      description: `Rates up → Housing ${housingChange < 0 ? 'down' : 'up'} ${Math.abs(housingChange).toFixed(0)}%`,
+      icon: housingChange < 0 ? TrendingDown : TrendingUp,
+      color: housingChange < 0 ? "text-destructive" : "text-chart-1"
+    },
+    {
+      title: "BoC Rate",
+      description: `${housingData.centralBankRate}% (${housingData.rateChange > 0 ? '+' : ''}${housingData.rateChange}%)`,
+      icon: housingData.rateChange < 0 ? TrendingDown : TrendingUp,
+      color: housingData.rateChange < 0 ? "text-chart-1" : "text-destructive"
+    },
+    {
+      title: "Affordability",
+      description: `${housingData.affordabilityIndex}% of income`,
+      icon: AlertTriangle,
+      color: housingData.affordabilityIndex > 60 ? "text-destructive" : "text-accent"
+    }
+  ]
   
   return (
     <Link href="/dashboard/housing" className="block group">
@@ -80,10 +106,13 @@ export function HousingRatesChart() {
               </div>
               <div>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  Housing vs Interest Rates
+                  Housing vs BoC Rates
                   <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                 </CardTitle>
-                <p className="text-xs text-muted-foreground">3-Year Inverse Correlation</p>
+                <p className="text-xs text-muted-foreground flex items-center gap-1">
+                  <RefreshCw className="h-3 w-3" />
+                  Live Data - 5min refresh
+                </p>
               </div>
             </div>
             <Badge variant="outline" className="bg-destructive/10 text-destructive border-destructive/20">
@@ -140,7 +169,7 @@ export function HousingRatesChart() {
                     return [`${value}%`, 'BoC Rate']
                   }}
                 />
-                <ReferenceLine yAxisId="housing" y={816} stroke="#f97316" strokeDasharray="3 3" strokeOpacity={0.5} />
+                <ReferenceLine yAxisId="housing" y={peakHousing} stroke="#f97316" strokeDasharray="3 3" strokeOpacity={0.5} />
                 <Area
                   yAxisId="housing"
                   type="monotone"
@@ -178,15 +207,15 @@ export function HousingRatesChart() {
           <div className="flex items-center justify-center gap-4 mb-4 flex-wrap">
             <div className="flex items-center gap-1.5">
               <div className="w-5 h-1 bg-[#f97316] rounded" />
-              <span className="text-[10px] text-muted-foreground">Home Price</span>
+              <span className="text-[10px] text-muted-foreground">Home Price (C${currentHousing}K)</span>
             </div>
             <div className="flex items-center gap-1.5">
               <div className="w-5 h-0.5 bg-[#22d3ee] rounded" style={{ backgroundImage: 'repeating-linear-gradient(90deg, #22d3ee 0, #22d3ee 3px, transparent 3px, transparent 6px)' }} />
-              <span className="text-[10px] text-muted-foreground">BoC Rate</span>
+              <span className="text-[10px] text-muted-foreground">BoC Rate ({housingData.centralBankRate}%)</span>
             </div>
             <div className="flex items-center gap-1.5">
               <div className="w-5 h-0.5 bg-[#ef4444] rounded" />
-              <span className="text-[10px] text-muted-foreground">Affordability Impact</span>
+              <span className="text-[10px] text-muted-foreground">Affordability</span>
             </div>
           </div>
           
@@ -207,7 +236,7 @@ export function HousingRatesChart() {
           </div>
           
           <div className="flex items-center justify-between mt-4 pt-3 border-t border-border">
-            <span className="text-xs text-muted-foreground">Click for 2010-2025 housing timeline</span>
+            <span className="text-xs text-muted-foreground">Click for detailed housing analysis</span>
             <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
           </div>
         </CardContent>
