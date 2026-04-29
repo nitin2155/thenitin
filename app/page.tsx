@@ -21,6 +21,7 @@ import { StockLineChart } from "@/components/home/stock-line-chart"
 import { HousingRatesChart } from "@/components/home/housing-rates-chart"
 import { TariffImpactChart } from "@/components/home/tariff-impact-chart"
 import { GeopoliticalChart } from "@/components/home/geopolitical-chart"
+import { MarketHeadlines } from "@/components/home/market-headlines"
 
 // Mini sparkline data generators
 const generateSparkline = (trend: "up" | "down" | "volatile", points: number = 20) => {
@@ -389,6 +390,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Market-Moving Headlines */}
+      <MarketHeadlines />
 
       {/* Interactive Tools */}
       <section className="relative z-10 px-4 pb-12">
