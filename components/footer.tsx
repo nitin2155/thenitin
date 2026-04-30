@@ -15,9 +15,9 @@ const footerLinks = {
     { href: "#", label: "Data Sources" },
   ],
   legal: [
-    { href: "#", label: "Privacy Policy" },
-    { href: "#", label: "Terms of Service" },
-    { href: "#", label: "Cookie Policy" },
+    { href: "/privacy", label: "Privacy Policy" },
+    { href: "/terms", label: "Terms of Service" },
+    { href: "/privacy#cookies", label: "Cookie Policy" },
   ],
 }
 
