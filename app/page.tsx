@@ -25,6 +25,8 @@ import { CanadaStockChart } from "@/components/home/canada-stock-chart"
 import { USAStockChart } from "@/components/home/usa-stock-chart"
 import { USAHousingChart } from "@/components/home/usa-housing-chart"
 import { USAFedChart } from "@/components/home/usa-fed-chart"
+import { EconomicImpactChart, ImmigrationImpactChart } from "@/components/home/economic-impact-chart"
+import { Footer } from "@/components/footer"
 
 // Mini sparkline data generators
 const generateSparkline = (trend: "up" | "down" | "volatile", points: number = 20) => {
@@ -445,6 +447,28 @@ export default function HomePage() {
               <GeopoliticalChart />
             </div>
           </div>
+
+          {/* Economic Impact Section - NEW */}
+          <div className="mt-8">
+            <div className="flex items-center gap-3 mb-4">
+              <TrendingUp className="h-6 w-6 text-emerald-500" />
+              <div>
+                <h3 className="text-lg font-bold text-foreground">Economic Impact Analysis</h3>
+                <p className="text-xs text-muted-foreground">Historical gains/losses and immigration effects on Canada & USA</p>
+              </div>
+              <div className="ml-auto flex items-center gap-1.5">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Historical Data</span>
+              </div>
+            </div>
+            <div className="grid gap-4 lg:grid-cols-2">
+              <div className="card-hover">
+                <EconomicImpactChart />
+              </div>
+              <div className="card-hover">
+                <ImmigrationImpactChart />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -605,28 +629,7 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 bg-black border-t border-gray-800 py-6">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-sm">
-                <span className="text-white">Fore</span><span className="text-primary">wire</span>
-              </span>
-              <span>| Wired into forward signals</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <span>Educational only</span>
-              <span>|</span>
-              <span className="flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-chart-1 animate-live-pulse" />
-                Live
-              </span>
-              <span>|</span>
-              <span>All in CAD</span>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

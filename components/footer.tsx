@@ -6,7 +6,8 @@ const footerLinks = {
     { href: "/dashboard/stocks", label: "Stocks" },
     { href: "/dashboard/housing", label: "Housing" },
     { href: "/dashboard/commodities", label: "Commodities" },
-    { href: "/dashboard/geopolitics", label: "Geopolitics" },
+    { href: "/dashboard/economic-impact", label: "Economic Impact" },
+    { href: "/dashboard/immigration", label: "Immigration" },
   ],
   resources: [
     { href: "/dashboard/tariffs", label: "Tariff Analysis" },
