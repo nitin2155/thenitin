@@ -11,8 +11,12 @@ const footerLinks = {
   resources: [
     { href: "/dashboard/tariffs", label: "Tariff Analysis" },
     { href: "/dashboard/news", label: "Market News" },
-    { href: "#", label: "Methodology" },
-    { href: "#", label: "Data Sources" },
+    { href: "/methodology", label: "Methodology" },
+    { href: "/data-sources", label: "Data Sources" },
+  ],
+  company: [
+    { href: "/about", label: "About" },
+    { href: "/contact", label: "Contact" },
   ],
   legal: [
     { href: "/privacy", label: "Privacy Policy" },
@@ -51,7 +55,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-2">
             <Link href="/" className="text-xl font-semibold tracking-tight text-foreground">
               Forewire
@@ -89,6 +93,22 @@ export function Footer() {
             <h3 className="text-sm font-semibold text-foreground">Resources</h3>
             <ul className="mt-4 flex flex-col gap-3">
               {footerLinks.resources.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-foreground">Company</h3>
+            <ul className="mt-4 flex flex-col gap-3">
+              {footerLinks.company.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
